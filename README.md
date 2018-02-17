@@ -7,6 +7,6 @@ ideas will go in this repository!
 - Jacob Bloom ([@mrjacobbloom](https://github.com/mrjacobbloom))
 - Joy Mace ([@JoyMace](https://github.com/JoyMace))
 - Robert Rosetti
-- Eliott Ishak
+- Eliott Ishak ([@elis7999](https://github.com/elis7999))
 - Tuqa Alaithan ([@Totoistough](https://github.com/Totoistough))
 - Jun Sheng ([@sntst](https://github.com/sntst))
