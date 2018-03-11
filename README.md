@@ -10,3 +10,17 @@ ideas will go in this repository!
 - Eliott Ishak ([@elis7999](https://github.com/elis7999))
 - Tuqa Alaithan ([@Totoistough](https://github.com/Totoistough))
 - Jun Sheng ([@sntst](https://github.com/sntst))
+
+# How to run the site
+
+1. Navigate into the `code` folder:
+
+```shell
+cd code
+```
+
+2. Start the server:
+
+```shell
+node index.js
+```
