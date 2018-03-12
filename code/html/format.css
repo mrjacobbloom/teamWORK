@@ -1,0 +1,23 @@
+#homepage {
+	/*background-color:gray;*/
+	height:100%;
+}
+
+#find{
+	/*background-color:pink;*/
+}
+
+#menu {
+	/*background-color: gray;*/
+	
+}
+
+#images{
+
+	background-image:url("https://cdn3.volusion.com/wzrmj.vmaus/v/vspfiles/photos/DM002-2.jpg");
+	height: 100%;
+	background-position: center;
+	background-repeat: no-repeat;
+	background-size: cover;
+
+}
