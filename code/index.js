@@ -3,16 +3,20 @@ const opn = require('opn');
 
 const app = express();
 
-app.get(/\/resources\/\w+\.\w+/, (req, res) => {
-  console.log('request for ' + req.originalUrl)
-  res.sendFile(req.originalUrl, { root: __dirname });
-});
+app.use(express.static('resources'));
+
 app.get('/', (req, res) => {
   res.sendFile('html/homepage.html', { root: __dirname });
 });
 
 app.get('/find', (req, res) => {
   res.sendFile('html/find.html', { root: __dirname });
+});
+app.get('/login', (req, res) => {
+  res.sendFile('html/login.html', { root: __dirname });
+});
+app.get('/register', (req, res) => {
+  res.sendFile('html/register.html', { root: __dirname });
 });
 
 app.listen(3000, () => {
