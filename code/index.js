@@ -1,23 +1,23 @@
 const express = require('express');
+const expressNunjucks = require('express-nunjucks');
 const opn = require('opn');
+
+const DEVELOPMENT = true;
 
 const app = express();
 
-app.use(express.static('resources'));
-
-app.get('/', (req, res) => {
-  res.sendFile('html/homepage.html', { root: __dirname });
+app.set('views', __dirname + '/html');
+const njk = expressNunjucks(app, {
+    watch: DEVELOPMENT,
+    noCache: DEVELOPMENT
 });
 
-app.get('/find', (req, res) => {
-  res.sendFile('html/find.html', { root: __dirname });
-});
-app.get('/login', (req, res) => {
-  res.sendFile('html/login.html', { root: __dirname });
-});
-app.get('/register', (req, res) => {
-  res.sendFile('html/register.html', { root: __dirname });
-});
+app.use(express.static('static'));
+
+app.get('/', (req, res) => res.render('homepage'));
+app.get('/find', (req, res) => res.render('find'));
+app.get('/login', (req, res) => res.render('login'));
+app.get('/register', (req, res) => res.render('register'));
 
 app.listen(3000, () => {
   console.log('Running at http://localhost:3000/');
