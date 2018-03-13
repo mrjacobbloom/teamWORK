@@ -1,23 +1,60 @@
-#wrapper {
-	/*background-color:gray;*/
-	height:100%;
+body {
+	background-image:url('nature.jpg');
+	background-attachment: fixed;
+	color: white;
 }
 
-#find{
-	/*background-color:pink;*/
+#title, #pagetitle {
+	margin-top: 5%;
+	font-style: italic;
+	text-shadow: 2px 2px black;
+	font-family: "Times New Roman", Times, serif;
+}
+#title a {
+	color: white;
+}
+#pagetitle {
+	font-size: 30pt;
+	text-align: center;
 }
 
 #menu {
-	/*background-color: gray;*/
-	
+	border-top: 1px solid white;
+	border-bottom: 1px solid white;
+	margin: 0;
+	padding: 0;
+	list-style: none;
+}
+#menu li {
+	display: inline-block;
+}
+#menu li a {
+	display: inline-block;
+	padding: 10px;
+	color: white;
+	font-weight: bold;
+	text-decoration: none;
 }
 
-#images{
+#menu li a:hover {
+	background: rgba(255,255,255,.4);
+}
+#menu li a:disabled {
+	color: lightgray;
+}
 
-	background-image:url("https://cdn3.volusion.com/wzrmj.vmaus/v/vspfiles/photos/DM002-2.jpg");
-	height: 100%;
-	background-position: center;
-	background-repeat: no-repeat;
-	background-size: cover;
+.button {
+	margin-left: 43%;
+	background-color: #4CAF50; /* Green */
+  border: none;
+  border-radius: 8px;
+  color: white;
+ 	padding: 4px 15px;
+ 	font-family: "Times New Roman", Times, serif;
+}
 
+.emphatic-link {
+	margin-left: 25%;
+	color:lightgreen;
+	text-shadow: 2px 2px black;
 }

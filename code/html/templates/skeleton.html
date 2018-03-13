@@ -9,7 +9,7 @@
 
     <!-- Bootstrap CSS -->
     <link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/4.0.0/css/bootstrap.min.css" integrity="sha384-Gn5384xqQ1aoWXA+058RXPxPg6fy4IWvTNh0E263XmFcJlSAwiGgFAW/dAiS6JXm" crossorigin="anonymous">
-    <link rel="stylesheet" href="resources/format.css">
+    <link rel="stylesheet" href="format.css">
 
     <title>{{title}} - Natural Neighbors</title>
   </head>
@@ -17,28 +17,24 @@
 	<div class="container" id="wrapper">
 		<div class="row">
 			<div class="col-lg-8 offset-lg-2">
-        <h1>Natural Neighbors</h1>
-				<h2>Your wildlife journal</h2>
-			</div>
-		</div>
-		<!-- Menu -->
-		<div class="row">
-			<div class="col-lg-3" id="menu">
-				<h3>Menu</h3>
-				<ul>
-          <li><a href='/'><strong>Home</strong></a></li>
-					<li><a href='/find'><strong>Find Local Wildlife</strong></a></li>
-					<li><a href='/login'><strong>Log in</strong></a></li>
-          <li><a href='/register'><strong>Register</strong></a></li>
-					<li><strong>Sources</strong></li>
-					<li><strong>About Us</strong></li>
+        <div id="title">
+          <h1><a href="/">Natural Neighbors</a></h1>
+  				<h2>Your wildlife journal</h2>
+        </div>
+        <ul id="menu">
+          <li><a href="/">Home</a></li>
+					<li><a href="/find">Find Local Wildlife</a></li>
+					<li><a href="/login">Log in</a></li>
+          <li><a href="/register">Register</a></li>
+          <li><a href="#" disabled>Sources</a></li>
+          <li><a href="#" disabled>About Us</a></li>
 				</ul>
+        <div id="content">
+          <h2 id="pagetitle">{{title}}</h2>
+          {% block content %}
+          {% endblock %}
+    		</div>
 			</div>
-		</div>
-		<div>
-      <h2>{{title}}</h2>
-      {% block content %}
-      {% endblock %}
 		</div>
 	</div>
     
