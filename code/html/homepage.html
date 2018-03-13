@@ -1,54 +1,14 @@
 <!-- Robert Rossetti -->
 <!-- Created 2/27/18 -->
-
-<!doctype html>
-<html lang="en">
-  <head>
-    <meta charset="utf-8">
-    <meta name="viewport" content="width=device-width, initial-scale=1, shrink-to-fit=no">
-
-    <!-- Bootstrap CSS -->
-    <link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/4.0.0/css/bootstrap.min.css" integrity="sha384-Gn5384xqQ1aoWXA+058RXPxPg6fy4IWvTNh0E263XmFcJlSAwiGgFAW/dAiS6JXm" crossorigin="anonymous">
-    <link rel="stylesheet" href="resources/format.css">
-
-    <title>Team_WORK Project Homepage!</title>
-  </head>
-  <body>
-	<div class="container" id="homepage">
-		<div class="row">
-			<div class="col-lg-8 offset-lg-2">
-				<h1>This is our local wildlife finder</h1>
-			</div>
-		</div>
-		<!-- Menu -->
-		<div class="row">
-			<div class="col-lg-3" id="menu">
-				<h3>Menu</h3>
-				<ul>
-					<li><a href='/find'><strong>Find Local Wildlife</strong></a></li>
-					<li><a href='/login'><strong>Log in</strong></a></li>
-					<li><strong>Sources</strong></li>
-					<li><strong>About Us</strong></li>
-				</ul>
-			</div>
-		</div>
-		<div class="row">
-			<div class="col-lg-4">
-				<img src="https://s3.amazonaws.com/codecademy-content/courses/web-101/web101-image_brownbear.jpg" 
-			alt="A Big Brown Bear"/>
-			</div>
-			<div class="col-lg-5" id="map">
-				<img src="https://cdn3.volusion.com/wzrmj.vmaus/v/vspfiles/photos/DM002-2.jpg" height='200' width='300'/>
-			</div>
-		</div>
-	</div>
-    
-	
-	
-	
-    <!-- jQuery first, then Popper.js, then Bootstrap JS -->
-    <script src="https://code.jquery.com/jquery-3.2.1.slim.min.js" integrity="sha384-KJ3o2DKtIkvYIK3UENzmM7KCkRr/rE9/Qpg6aAZGJwFDMVNA/GpGFF93hXpG5KkN" crossorigin="anonymous"></script>
-    <script src="https://cdnjs.cloudflare.com/ajax/libs/popper.js/1.12.9/umd/popper.min.js" integrity="sha384-ApNbgh9B+Y1QKtv3Rn7W3mgPxhU9K/ScQsAP7hUibX39j7fakFPskvXusvfa0b4Q" crossorigin="anonymous"></script>
-    <script src="https://maxcdn.bootstrapcdn.com/bootstrap/4.0.0/js/bootstrap.min.js" integrity="sha384-JZR6Spejh4U02d8jOt6vLEHfe/JQGiRRSQQxSfFWpi1MquVdAyjUar5+76PVCmYl" crossorigin="anonymous"></script>
-  </body>
-</html>
+{% extends "templates/skeleton.html" %}
+{% set title = "Home" %}
+{% block content %}
+<div class="row">
+  <div class="col-lg-4">
+    <img src="https://s3.amazonaws.com/codecademy-content/courses/web-101/web101-image_brownbear.jpg" alt="A Big Brown Bear"/>
+  </div>
+  <div class="col-lg-5" id="map">
+    <img src="https://cdn3.volusion.com/wzrmj.vmaus/v/vspfiles/photos/DM002-2.jpg" height='200' width='300'/>
+  </div>
+</div>
+{% endblock %}
