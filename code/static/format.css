@@ -21,9 +21,13 @@ body {
 #menu {
 	border-top: 1.5px solid white;
 	border-bottom: 1.5px solid white;
+	display: flex;
 	margin: 0;
 	padding: 0;
 	list-style: none;
+}
+.spacer {
+	flex-grow: 1;
 }
 #menu li {
 	display: inline-block;
@@ -39,12 +43,10 @@ body {
 #menu li a:hover {
 	background: rgba(255,255,255,.4);
 }
-#menu li a:disabled {
+#menu li a[disabled] {
 	color: lightgray;
-}
-
-#content {
-	margin-bottom: 15px;
+	background: transparent;
+	cursor: default;
 }
 
 .button {
@@ -63,4 +65,9 @@ body {
 	color:lightgreen;
 	text-shadow: 2px 2px black;
 	font-weight: bold;
+}
+
+#footer {
+	margin: 35px 0 15pt 0;
+	font-size: 10pt;
 }

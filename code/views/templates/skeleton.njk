@@ -24,16 +24,20 @@
         <ul id="menu">
           <li><a href="/">Home</a></li>
 					<li><a href="/find">Find Local Wildlife</a></li>
-					<li><a href="/login">Log In</a></li>
-          <li><a href="/register">Register</a></li>
           <li><a href="#" disabled>Sources</a></li>
           <li><a href="#" disabled>About Us</a></li>
+          <li class="spacer"></li>
+          <li><a href="/login">Log In</a></li>
+          <li><a href="/register">Register</a></li>
 				</ul>
         <div id="content">
           <h2 id="pagetitle">{{title}}</h2>
           {% block content %}
           {% endblock %}
     		</div>
+        <div id="footer">
+          Copyright &copy; teamWORK
+        </div>
 			</div>
 		</div>
 	</div>
