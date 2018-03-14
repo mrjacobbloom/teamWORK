@@ -1,0 +1,19 @@
+{% extends "templates/skeleton.njk" %}
+{% set title = "Log In" %}
+{% block content %}
+<form>
+ <div class="form-group" id="email" align="right">
+   <label for="email_input" style="font-weight:bold" >Email address</label>
+   <input type="email" class="form-control" id="email_input" placeholder="Enter Email">
+ </div>
+
+ <div class="form-group" id="pass" align="right">
+   <label for="password_input" id="passLabel" style="font-weight:bold">Password</label>
+   <input type="password" class="form-control" id="password_input" placeholder="Enter Password">
+ </div>
+ 
+ <input type= "submit" value="Log in" align="right" class="button">
+ <br>
+   <a href='/register' align="right" class="emphatic-link">New Member? Sign up!</a>
+</form>
+{% endblock %}
