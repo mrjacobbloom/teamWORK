@@ -11,7 +11,34 @@ ideas will go in this repository!
 - Tuqa Alaithan ([@Totoistough](https://github.com/Totoistough))
 - Jun Sheng ([@sntst](https://github.com/sntst))
 
-# How to run the site
+# How to install the server
+
+Before you do this: Note that there have been issues installing Nunjucks
+on the VM. I recommend doing this on your main operating system since it'll
+run just as well there.
+
+1. Clone the repository:
+
+```shell
+cd folder/where/I/want/the/repo
+git clone https://github.com/mrjacobbloom/teamWORK.git
+```
+
+2. [Install NodeJS](https://nodejs.org/en/download/package-manager/)
+3. [Install npm](https://docs.npmjs.com/getting-started/installing-node)
+4. Navigate into the `code` folder:
+
+```shell
+cd code
+```
+
+5. Install the dependencies:
+
+```shell
+npm install
+```
+
+# How to run the server
 
 1. Navigate into the `code` folder:
 
