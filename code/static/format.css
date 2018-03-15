@@ -18,7 +18,7 @@ body {
 	text-align: center;
 }
 
-#menu {
+#navbar {
 	border-top: 1.5px solid white;
 	border-bottom: 1.5px solid white;
 	display: flex;
@@ -29,10 +29,10 @@ body {
 .spacer {
 	flex-grow: 1;
 }
-#menu li {
+#navbar li {
 	display: inline-block;
 }
-#menu li a {
+#navbar li a {
 	display: inline-block;
 	padding: 10px;
 	color: white;
@@ -40,10 +40,10 @@ body {
 	text-decoration: none;
 }
 
-#menu li a:hover {
+#navbar li a:hover {
 	background: rgba(255,255,255,.4);
 }
-#menu li a[disabled] {
+#navbar li a[disabled] {
 	color: lightgray;
 	background: transparent;
 	cursor: default;

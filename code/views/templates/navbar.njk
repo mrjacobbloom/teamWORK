@@ -1,0 +1,14 @@
+<ul id="navbar">
+  <li><a href="/">Home</a></li>
+  <li><a href="/find">Find Local Wildlife</a></li>
+  <li><a href="#" disabled>Sources</a></li>
+  <li><a href="#" disabled>About Us</a></li>
+  <li class="spacer"></li>
+  {% if user %}
+    <li><a href="#">{{ user.username }}</a></li>
+    <li><a href="/logout">Log Out</a></li>
+  {% else %}
+    <li><a href="/login">Log In</a></li>
+    <li><a href="/register">Register</a></li>
+  {% endif %}
+</ul>
