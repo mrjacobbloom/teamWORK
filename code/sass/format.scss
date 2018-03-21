@@ -1,0 +1,112 @@
+@import "consts";
+
+/** the whoooole page **/
+body {
+	background-image:url('nature.jpg');
+	background-attachment: fixed;
+	color: white;
+	font-family: $sans;
+}
+#page {
+	width: $widescreen-width;
+	margin: 0px auto;
+	box-sizing: border-box;
+}
+@media (max-width: $widescreen-width + 20px ) {
+    #page {
+        width: auto;
+				margin: 0 10px;
+    }
+}
+
+/** header area **/
+.title {
+  font-style: italic;
+	text-shadow: 2px 2px black;
+	font-family: "Times New Roman", Times, serif;
+  font-weight: normal;
+}
+#title {
+  h1, h2 {
+    @extend .title;
+    margin-top: 0;
+  	margin-bottom: .5rem;
+  }
+  h1 {
+    font-size: 2.5rem;
+    a {
+    	text-decoration: none;
+    	color: white;
+      &:hover {
+      	text-decoration: underline;
+      }
+    }
+  }
+}
+
+/** menu **/
+#navbar {
+	border-top: 1.5px solid white;
+	border-bottom: 1.5px solid white;
+	display: flex;
+	margin: 0;
+	padding: 0;
+	list-style: none;
+  .spacer {
+  	flex-grow: 1;
+  }
+  li {
+  	display: inline-block;
+    a {
+      display: inline-block;
+    	padding: 10px;
+    	color: white;
+    	font-weight: bold;
+    	text-decoration: none;
+      &:hover {
+        background: rgba(255,255,255,.4);
+      }
+      &[disabled] {
+        color: lightgray;
+      	background: transparent;
+      	cursor: default;
+      }
+    }
+  }
+}
+
+/** footer **/
+#footer {
+	margin: 35px 0 15pt 0;
+	font-size: 10pt;
+}
+
+/** content **/
+
+#pagetitle {
+  @extend .title;
+	font-size: 30pt;
+	text-align: center;
+}
+
+#content {
+  margin-top: 1.53em;
+}
+
+.button {
+	margin-left: 43%;
+	background-color: #4CAF50; /* Green */
+  border: none;
+  border-radius: 8px;
+  color: white;
+ 	padding: 4px 15px;
+ 	font-family: "Times New Roman", Times, serif;
+}
+
+.emphatic-link {
+	display: block;
+	text-align: right;
+	color:lightgreen;
+	text-shadow: 2px 2px black;
+	font-weight: bold;
+}

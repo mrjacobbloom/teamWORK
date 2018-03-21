@@ -1,6 +1,7 @@
 const express = require('express');
 const session = require('express-session');
 const bodyParser = require('body-parser');
+const sassMiddleware = require('node-sass-middleware');
 // const { body,validationResult } = require('express-validator/check');
 // const { sanitizeBody } = require('express-validator/filter');
 const nunjucks = require('nunjucks');
@@ -16,6 +17,13 @@ nunjucks.configure('views', {
     noCache: DEVELOPMENT
 });
 
+app.use(
+     sassMiddleware({
+         src: __dirname + '/sass', //where the sass files are 
+         dest: __dirname + '/static', //where css should go
+     })
+ );
+ 
 app.use(express.static('static'));
 app.use(bodyParser.json());
 app.use(bodyParser.urlencoded({ extended: true }));
