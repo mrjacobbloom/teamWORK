@@ -32,7 +32,7 @@
 			display: none;
 			position: absolute;
 			top: 100%;
-			left: 0;
+			right: 0;
 			padding: 0;
 			list-style: none;
 			background: rgba(255,255,255,.2);
@@ -41,6 +41,7 @@
 			min-width: 100%;
 			box-sizing: border-box;
 			li a {
+				white-space:nowrap;
 				display: block;
 			}
 		}

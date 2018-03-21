@@ -64,7 +64,7 @@ body {
       display: none;
       position: absolute;
       top: 100%;
-      left: 0;
+      right: 0;
       padding: 0;
       list-style: none;
       background: rgba(255, 255, 255, 0.2);
@@ -73,6 +73,7 @@ body {
       min-width: 100%;
       box-sizing: border-box; }
       #navbar .dropdown ul li a {
+        white-space: nowrap;
         display: block; }
     #navbar .dropdown.open ul {
       display: unset; }
