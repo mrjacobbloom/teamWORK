@@ -36,8 +36,29 @@ app.use(session({
   saveUninitialized: true
 }));
 
-app.get('/', (req, res) => res.render('homepage.njk', req.session));
+app.get('/', (req, res) => {
+  if(req.session.user) {
+    // create a new object as a shallow copy of the session object
+    // but we want to attach more data to it
+    let data = Object.assign({}, req.session);
+    data.posts = [
+      { name: 'Jennifer', location: 'Milwaukee', animal: 'cheese'},
+      { name: 'Brandon S', location: 'Milwaukee', animal: 'cheese'},
+      { name: 'Brandon G', location: 'a grocery store', animal: 'milk'},
+    ];
+    res.render('dashboard.njk', data);
+  } else {
+    res.render('landingpage.njk', req.session);
+  }
+});
 app.get('/find', (req, res) => res.render('find.njk', req.session));
+app.get('/user/:id', (req, res) => {
+  let data = Object.assign({}, req.session);
+  data.profile = {
+    username: req.params.id
+  };
+  res.render('profile.njk', data);
+});
 app.get('/login', (req, res) => res.render('login.njk', req.session));
 app.get('/register', (req, res) => res.render('register.njk', req.session));
 
