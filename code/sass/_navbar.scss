@@ -1,0 +1,51 @@
+#navbar {
+	border-top: $border-style;
+	border-bottom: $border-style;
+	display: flex;
+	margin: 0;
+	padding: 0;
+	list-style: none;
+  .spacer {
+  	flex-grow: 1;
+  }
+  &> li {
+  	display: inline-block;
+    a {
+      display: inline-block;
+    	padding: 10px;
+    	color: white;
+    	font-weight: bold;
+    	text-decoration: none;
+      &:hover {
+        background: rgba(255,255,255,.4);
+      }
+      &[disabled] {
+        color: lightgray;
+      	background: transparent;
+      	cursor: default;
+      }
+    }
+  }
+	.dropdown {
+		position: relative;
+		ul {
+			display: none;
+			position: absolute;
+			top: 100%;
+			left: 0;
+			padding: 0;
+			list-style: none;
+			background: rgba(255,255,255,.2);
+			border: $border-style;
+			border-top: none;
+			min-width: 100%;
+			box-sizing: border-box;
+			li a {
+				display: block;
+			}
+		}
+		&.open ul {
+			display: unset;
+		}
+	}
+}

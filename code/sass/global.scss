@@ -45,35 +45,7 @@ body {
 }
 
 /** menu **/
-#navbar {
-	border-top: 1.5px solid white;
-	border-bottom: 1.5px solid white;
-	display: flex;
-	margin: 0;
-	padding: 0;
-	list-style: none;
-  .spacer {
-  	flex-grow: 1;
-  }
-  li {
-  	display: inline-block;
-    a {
-      display: inline-block;
-    	padding: 10px;
-    	color: white;
-    	font-weight: bold;
-    	text-decoration: none;
-      &:hover {
-        background: rgba(255,255,255,.4);
-      }
-      &[disabled] {
-        color: lightgray;
-      	background: transparent;
-      	cursor: default;
-      }
-    }
-  }
-}
+@import "navbar";
 
 /** footer **/
 #footer {
