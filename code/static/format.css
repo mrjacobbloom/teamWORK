@@ -72,6 +72,24 @@ body {
 #content {
   margin-top: 1.53em; }
 
+.form-group {
+  margin-bottom: 1.2rem; }
+  .form-group label {
+    display: inline-block;
+    font-weight: bold;
+    margin-bottom: .5rem; }
+  .form-group input, .form-group select {
+    display: block;
+    box-sizing: border-box;
+    width: 100%;
+    padding: .375rem .75rem;
+    font-size: 1rem;
+    line-height: 1.5;
+    color: #495057;
+    background-color: #fff;
+    border: 1px solid #ced4da;
+    border-radius: .25rem; }
+
 .button {
   margin-left: 43%;
   background-color: #4CAF50;
@@ -80,7 +98,8 @@ body {
   border-radius: 8px;
   color: white;
   padding: 4px 15px;
-  font-family: "Times New Roman", Times, serif; }
+  font-family: "Times New Roman", Times, serif;
+  font-size: inherit; }
 
 .emphatic-link {
   display: block;
