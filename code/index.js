@@ -72,7 +72,8 @@ app.get('/logout', function (req, res) {
   res.redirect('/');
 });
 
-app.listen(3000, () => {
-  console.log('Running at http://localhost:3000/');
-  opn('http://localhost:3000/');
+var port = process.env.PORT || 3000;
+app.listen(port, () => {
+  console.log(`Running at http://localhost:${port}/`);
+  if(port == 3000) opn(`http://localhost:${port}/`);
 });
