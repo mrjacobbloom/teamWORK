@@ -2,10 +2,23 @@ const express = require('express');
 const session = require('express-session');
 const bodyParser = require('body-parser');
 const sassMiddleware = require('node-sass-middleware');
-// const { body,validationResult } = require('express-validator/check');
-// const { sanitizeBody } = require('express-validator/filter');
+const { body,validationResult } = require('express-validator/check');
+const { sanitizeBody } = require('express-validator/filter');
 const nunjucks = require('nunjucks');
 const opn = require('opn');
+
+// SQL stuff lol
+var mysql = require('mysql');
+var myConnection = require('express-myconnection');
+var config = require('./config');
+var dbOptions = {
+ host: config.database.host,
+ user: config.database.user,
+ password: config.database.password,
+ port: config.database.port,
+ database: config.database.db
+};
+app.use(myConnection(mysql, dbOptions, 'pool'));
 
 const DEVELOPMENT = true;
 
@@ -65,6 +78,57 @@ app.get('/register', (req, res) => res.render('register.njk', req.session));
 /** SESSION STUFF **/
 app.post('/login', function (req, res) {
   req.session.user = {username: req.body.username_or_email};
+  res.redirect('/');
+});
+app.post('/register', function (req, res) {
+  console.log(req.body);
+  //req.session.user = {username: req.body.username_or_email};
+  
+  req.assert('username', 'username is required').notEmpty()
+  req.assert('password', 'password is required').notEmpty()
+  
+  var errors = req.validationErrors()
+  
+  if(!errors){
+	  
+	  var user = {
+		username: req.sanitize('username_or_email').escape().trim(),
+		password: req.sanitize('password').escape().trim()
+	  }
+    
+    
+    req.getConnection(function(error, conn) {
+    	/* Below we are doing a template replacement. The ?
+    	is replaced by entire item object*/
+    	/* This is the way which is followed to substitute
+    	values for SET*/
+    	conn.query('INSERT INTO users SET ?', user, function(err, result) {
+    		if (err) {
+    			req.flash('error', err)
+    			// render to views/store/add.ejs
+    			res.render('register.njk', {
+      			title: 'Add New Item',
+      			username: user.username,
+      			password: user.password
+      		})
+      	} else {
+      		req.flash('success', 'Data added successfully!')
+      		// render to views/store/add.ejs
+      		res.render('register', {
+      			username: '',
+      			password: ''
+      		})
+    		}
+  	  })
+  	})
+  }
+})
+    
+    
+    
+  }
+  
+  
   res.redirect('/');
 });
 app.get('/logout', function (req, res) {
