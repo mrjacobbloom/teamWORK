@@ -2,10 +2,13 @@ const express = require('express');
 const session = require('express-session');
 const bodyParser = require('body-parser');
 const sassMiddleware = require('node-sass-middleware');
-const { body,validationResult } = require('express-validator/check');
-const { sanitizeBody } = require('express-validator/filter');
+const expressValidator = require('express-validator');
 const nunjucks = require('nunjucks');
 const opn = require('opn');
+
+
+const DEVELOPMENT = true;
+const app = express();
 
 // SQL stuff lol
 var mysql = require('mysql');
@@ -19,10 +22,6 @@ var dbOptions = {
  database: config.database.db
 };
 app.use(myConnection(mysql, dbOptions, 'pool'));
-
-const DEVELOPMENT = true;
-
-const app = express();
 
 nunjucks.configure('views', {
     autoescape: true,
@@ -48,6 +47,7 @@ app.use(session({
   resave: false,
   saveUninitialized: true
 }));
+app.use(expressValidator());
 
 app.get('/', (req, res) => {
   if(req.session.user) {
@@ -77,60 +77,59 @@ app.get('/register', (req, res) => res.render('register.njk', req.session));
 
 /** SESSION STUFF **/
 app.post('/login', function (req, res) {
-  req.session.user = {username: req.body.username_or_email};
-  res.redirect('/');
+	req.getConnection(function(error, conn) {
+		conn.query('SELECT * FROM users WHERE username = "' + req.body.username + '"', function(err, rows, fields) {
+			if (err) {
+				req.flash('error', err)
+			} else {
+				if(rows.length > 0) {
+					let user = rows[0]
+					if(user.password == req.body.password) { // username correct
+						req.session.user = {username: req.body.username};
+						res.redirect('/');
+					} else { // username incorrect
+						res.redirect('/login'); // TODO: add an error
+					}
+				} else { // there are no users with that username
+					res.redirect('/login'); // TODO: add an error
+				}
+			}
+		});
+	});
 });
+
 app.post('/register', function (req, res) {
-  console.log(req.body);
-  //req.session.user = {username: req.body.username_or_email};
-  
-  req.assert('username', 'username is required').notEmpty()
-  req.assert('password', 'password is required').notEmpty()
-  
-  var errors = req.validationErrors()
-  
-  if(!errors){
-	  
-	  var user = {
-		username: req.sanitize('username_or_email').escape().trim(),
-		password: req.sanitize('password').escape().trim()
-	  }
+    console.log(req.body);
+    //req.session.user = {username: req.body.username_or_email};
     
+    req.assert('username', 'username is required').notEmpty();
+    req.assert('password', 'password is required').notEmpty();
     
-    req.getConnection(function(error, conn) {
-    	/* Below we are doing a template replacement. The ?
-    	is replaced by entire item object*/
-    	/* This is the way which is followed to substitute
-    	values for SET*/
-    	conn.query('INSERT INTO users SET ?', user, function(err, result) {
-    		if (err) {
-    			req.flash('error', err)
-    			// render to views/store/add.ejs
-    			res.render('register.njk', {
-      			title: 'Add New Item',
-      			username: user.username,
-      			password: user.password
-      		})
-      	} else {
-      		req.flash('success', 'Data added successfully!')
-      		// render to views/store/add.ejs
-      		res.render('register', {
-      			username: '',
-      			password: ''
-      		})
-    		}
-  	  })
-  	})
-  }
-})
+    var errors = req.validationErrors();
     
-    
-    
-  }
-  
-  
-  res.redirect('/');
+    if(!errors) {
+        var user = {
+            username: req.sanitize('username').escape().trim(),
+            email: req.sanitize('email').escape().trim(),
+            password: req.sanitize('password').escape().trim(),
+            state: req.sanitize('state').escape().trim(),
+            zipcode: req.sanitize('zipcode').escape().trim()
+        };
+        
+        req.getConnection(function(error, conn) {
+            conn.query('INSERT INTO users SET ?', user, function(err, result) {
+                if (err) {
+                    req.flash('error', err)
+                } else {
+                    // log them in here
+                    res.redirect('/');
+                }
+            });
+        });
+    }
 });
+  
+  
 app.get('/logout', function (req, res) {
   req.session.user = null;
   res.redirect('/');
