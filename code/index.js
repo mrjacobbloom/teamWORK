@@ -54,16 +54,30 @@ app.get('/', (req, res) => {
     // create a new object as a shallow copy of the session object
     // but we want to attach more data to it
     let data = Object.assign({}, req.session);
-    data.posts = [
-      { name: 'Jennifer', location: 'Milwaukee', animal: 'cheese'},
-      { name: 'Brandon S', location: 'Milwaukee', animal: 'cheese'},
-      { name: 'Brandon G', location: 'a grocery store', animal: 'milk'},
-    ];
-    res.render('dashboard.njk', data);
+	req.getConnection(function(error, conn) {
+		conn.query('SELECT * FROM data WHERE username = "' + req.session.user.username + '"', function(err, rows, fields) {
+			if (err) {
+				req.flash('error', err)
+			} else {
+				console.log(rows);
+				data.posts = rows;
+				/*
+				if(rows.length > 0) {
+					
+				} else { // this user has no posts - need blank dashboard page
+					data.posts = [];
+				}*/
+				res.render('dashboard.njk', data);
+			}
+		});
+	});
+	//------------------------------------		
+    
   } else {
     res.render('landingpage.njk', req.session);
   }
 });
+
 app.get('/find', (req, res) => res.render('find.njk', req.session));
 app.get('/user/:id', (req, res) => {
   let data = Object.assign({}, req.session);
@@ -78,14 +92,15 @@ app.get('/register', (req, res) => res.render('register.njk', req.session));
 /** SESSION STUFF **/
 app.post('/login', function (req, res) {
 	req.getConnection(function(error, conn) {
-		conn.query('SELECT * FROM users WHERE username = "' + req.body.username + '"', function(err, rows, fields) {
+		let username = req.body.username.toLowerCase();
+		conn.query('SELECT * FROM users WHERE username = "' + username + '"', function(err, rows, fields) {
 			if (err) {
 				req.flash('error', err)
 			} else {
 				if(rows.length > 0) {
 					let user = rows[0]
 					if(user.password == req.body.password) { // username correct
-						req.session.user = {username: req.body.username};
+						req.session.user = {username: username};
 						res.redirect('/');
 					} else { // username incorrect
 						res.redirect('/login'); // TODO: add an error
@@ -109,7 +124,7 @@ app.post('/register', function (req, res) {
     
     if(!errors) {
         var user = {
-            username: req.sanitize('username').escape().trim(),
+            username: req.sanitize('username').escape().trim().toLowerCase(),
             email: req.sanitize('email').escape().trim(),
             password: req.sanitize('password').escape().trim(),
             state: req.sanitize('state').escape().trim(),
@@ -122,7 +137,7 @@ app.post('/register', function (req, res) {
                     req.flash('error', err)
                 } else {
                     // log them in here
-                    res.redirect('/');
+                    res.redirect('/login');
                 }
             });
         });
