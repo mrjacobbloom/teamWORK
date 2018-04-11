@@ -1,0 +1,16 @@
+{% extends "templates/skeleton.njk" %}
+{% set title = null %}
+{% block head %}
+<!-- dashboard WILL have its own stuff but not yet-->
+{% endblock %}
+{% block content %}
+<p>
+Welcome, {{ user.username }}! Enter your stuff in <input value="this box" /> :)
+</p>
+
+<ul>
+{% for post in posts %}
+  <li>{{ post.username }} in {{ post.latitude }} said {{ post.post_desc }}. (map goes here)</li>
+{% endfor %}
+</ul>
+{% endblock %}
