@@ -19,6 +19,10 @@ body {
     }
 }
 
+.clearfix::after {
+	clear: both;
+}
+
 /** header area **/
 .title {
   font-style: italic;

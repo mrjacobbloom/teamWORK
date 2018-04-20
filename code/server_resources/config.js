@@ -6,9 +6,5 @@ var config = {
  port: 3306, // default MySQL port
  db: 'naturalneighbors' // your database name
  },
- server: {
- host: '127.0.0.1',
- port: '4000'
- }
 };
 module.exports = config; //Expose the current config as a module

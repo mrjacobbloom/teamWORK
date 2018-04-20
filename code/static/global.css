@@ -15,6 +15,9 @@ body {
     width: auto;
     margin: 0 10px; } }
 
+.clearfix::after {
+  clear: both; }
+
 /** header area **/
 .title, #title h1, #title h2, #pagetitle {
   font-style: italic;
