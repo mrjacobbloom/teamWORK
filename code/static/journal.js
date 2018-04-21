@@ -12,32 +12,43 @@ function showPosition(position) {
   contentRight.querySelector('input[name="longitude"]').value = position.coords.longitude;
 }
 
-function getLocation(event) {
-  event.target.textContent = "Loading...";
-	if (navigator.geolocation) {
-		navigator.geolocation.getCurrentPosition(showPosition, showError);
-	} else {
-		//x.innerHTML = "Geolocation is not supported by this browser.";
-	}
-}
 window.addEventListener('load', () => {
-  var getLocationButton = document.querySelector('.post-getLocation-button');
-  getLocationButton.addEventListener('click', getLocation);
+  navigator.permissions.query({'name': 'geolocation'}).catch(err => {
+    showError("You must enable location services to use Natural Neighbors.");
+  }).then(status => {
+    var getLocationButton = document.querySelector('.post-getLocation-button');
+    if(status.state == "prompt") {
+      getLocationButton.addEventListener('click', e => {
+        e.target.textContent = "Loading...";
+        navigator.geolocation.getCurrentPosition(showPosition, showError);
+      });
+    } else if(status.state == "granted") {
+      getLocationButton.textContent = "Loading...";
+      navigator.geolocation.getCurrentPosition(showPosition, showError);
+    } else { // denied
+      showError("You must enable location services to use Natural Neighbors.");
+    }
+  })
 });
 
 function showError(error) {
-	/*switch(error.code) {
-		case error.PERMISSION_DENIED:
-			x.innerHTML = "Please turn on location services to use this feature."
-			break;
-		case error.POSITION_UNAVAILABLE:
-			x.innerHTML = "Location information is unavailable."
-			break;
-		case error.TIMEOUT:
-			x.innerHTML = "The request to get user location timed out."
-			break;
-		case error.UNKNOWN_ERROR:
-			x.innerHTML = "An unknown error occurred."
-			break;
-	}*/
+  var x = document.querySelector('#new-post .post-content-right');
+  if(error.code) {
+  	switch(error.code) {
+  		case error.PERMISSION_DENIED:
+  			x.innerHTML = "You must enable location services to use Natural Neighbors.";
+  			break;
+  		case error.POSITION_UNAVAILABLE:
+  			x.innerHTML = "Location information is unavailable.";
+  			break;
+  		case error.TIMEOUT:
+  			x.innerHTML = "The request to get user location timed out.";
+  			break;
+  		case error.UNKNOWN_ERROR:
+  			x.innerHTML = "An unknown error occurred.";
+  			break;
+  	}
+  } else {
+    x.innerHTML = error;
+  }
 }
