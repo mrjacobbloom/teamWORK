@@ -12,23 +12,28 @@ function showPosition(position) {
   contentRight.querySelector('input[name="longitude"]').value = position.coords.longitude;
 }
 
+function initGetPosition() {
+  document.querySelector('.post-getLocation-button').textContent = "Loading...";
+  navigator.geolocation.getCurrentPosition(showPosition, showError);
+}
+
 window.addEventListener('load', () => {
-  navigator.permissions.query({'name': 'geolocation'}).catch(err => {
-    showError("You must enable location services to use Natural Neighbors.");
-  }).then(status => {
-    var getLocationButton = document.querySelector('.post-getLocation-button');
-    if(status.state == "prompt") {
-      getLocationButton.addEventListener('click', e => {
-        e.target.textContent = "Loading...";
-        navigator.geolocation.getCurrentPosition(showPosition, showError);
-      });
-    } else if(status.state == "granted") {
-      getLocationButton.textContent = "Loading...";
-      navigator.geolocation.getCurrentPosition(showPosition, showError);
-    } else { // denied
+  var getLocationButton = document.querySelector('.post-getLocation-button');
+  if(navigator.permissions) {
+    navigator.permissions.query({'name': 'geolocation'}).catch(err => {
       showError("You must enable location services to use Natural Neighbors.");
-    }
-  })
+    }).then(status => {
+      if(status.state == "prompt") {
+        getLocationButton.addEventListener('click', initGetPosition);
+      } else if(status.state == "granted") {
+        initGetPosition();
+      } else { // denied
+        showError("You must enable location services to use Natural Neighbors.");
+      }
+    })
+  } else {
+    getLocationButton.addEventListener('click', initGetPosition);
+  }
 });
 
 function showError(error) {
