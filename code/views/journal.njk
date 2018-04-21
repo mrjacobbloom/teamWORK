@@ -2,6 +2,7 @@
 {% set title = null %}
 {% block head %}
 <link rel="stylesheet" href="/journal.css">
+<script async defer src="https://maps.googleapis.com/maps/api/js?key=AIzaSyBV3jNuAHYiFPCPRgEUJ-4SHBZxQ3c3Pr0&callback=initMap"></script>
 <script src="/journal.js"></script>
 {% endblock %}
 {% block content %}
@@ -25,7 +26,7 @@
       </div>
       <div class="post-content-right">
         <button class="button post-getLocation-button" type="button">Use my current location</button>
-        <img class="post-map" hidden />
+        <div class="post-map"></div>
         <input type="hidden" name="latitude" />
         <input type="hidden" name="longitude" />
       </div>
@@ -44,9 +45,7 @@
         <p class="post-description">{{ post.post_desc }}</p>
       </div>
       <div class="post-content-right">
-        {% if post.latitude and post.longitude %}
-          <img class="post-map" src="https://maps.googleapis.com/maps/api/staticmap?center={{ post.latitude }},{{ post.longitude }}&markers=|{{ post.latitude }},{{ post.longitude }}&zoom=16&size=400x300&key=AIzaSyBV3jNuAHYiFPCPRgEUJ-4SHBZxQ3c3Pr0" />
-        {% endif %}
+        <img class="post-map" src="https://maps.googleapis.com/maps/api/staticmap?center={{ post.latitude }},{{ post.longitude }}&markers=|{{ post.latitude }},{{ post.longitude }}&zoom=16&size=400x300&key=AIzaSyBV3jNuAHYiFPCPRgEUJ-4SHBZxQ3c3Pr0" />
       </div>
     </div>
   </div>
