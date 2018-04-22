@@ -4,7 +4,7 @@
   "description": "server for teamWORK's website, \"Natural Neighbors\"",
   "main": "index.js",
   "scripts": {
-    "test": "echo \"Error: no test specified\" && exit 1"
+    "test": "node test.js"
   },
   "author": "Jacob Bloom",
   "license": "ISC",
@@ -19,5 +19,9 @@
     "node-sass-middleware": "^0.11.0",
     "nunjucks": "^3.1.2",
     "opn": "^5.2.0"
+  },
+  "devDependencies": {
+    "cheerio": "^1.0.0-rc.2",
+    "querystring": "^0.2.0"
   }
 }
