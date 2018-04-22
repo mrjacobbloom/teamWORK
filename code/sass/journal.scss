@@ -72,3 +72,24 @@
 .button {
   margin: initial !important;
 }
+
+@media (max-width: $widescreen-width + 20px ) {
+  .post-content {
+    display: block;
+  }
+  .post-content-right {
+    width: 100%;
+  }
+  .post-content-right {
+    width: 100%;
+    margin-left: 0;
+  }
+  .post-map {
+    width: 100%;
+    height: auto;
+  }
+  #new-post .post-map {
+    width: 100%;
+    height: 300px;
+  }
+}
