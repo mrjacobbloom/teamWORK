@@ -107,7 +107,6 @@ app.post('/', function (req, res) {
     }
 });
 
-app.get('/find', (req, res) => res.render('find.njk', utils.genContext(req.session)));
 app.get('/user/:id', (req, res) => {
   let data = Object.assign({}, utils.genContext(req.session));
   data.profile = {
