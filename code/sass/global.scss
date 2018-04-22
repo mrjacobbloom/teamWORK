@@ -104,11 +104,12 @@ body {
  	font-family: $serif;
   font-size: inherit;
 }
-/**changed light gree to dark green**/
+/**changed light green to green**/
 .emphatic-link {
 	display: block;
 	text-align: right;
-	color:darkgreen;
+	color: green;
 	text-shadow: 2px 2px black;
 	font-weight: bold;
+	font-size: 30px;
 }
