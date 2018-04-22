@@ -3,6 +3,10 @@
 /** the whoooole page **/
 body {
 	background-image:url('nature.jpg');
+	/**changed opacity**/
+	opacity: 0.75;
+	/**changed background size**/
+	backgroun-size: cover;
 	background-attachment: fixed;
 	color: white;
 	font-family: $sans;
@@ -104,7 +108,7 @@ body {
 .emphatic-link {
 	display: block;
 	text-align: right;
-	color:lightgreen;
+	color:darkgreen;
 	text-shadow: 2px 2px black;
 	font-weight: bold;
 }
