@@ -40,8 +40,8 @@
     <hr/>
     <div class="post-content">
       <div class="post-content-left">
-        <h4 class="post-title">{{ post.post_title }}</h4>
-        <p class="post-description">{{ post.post_desc }}</p>
+        <h4 class="post-title">{{ post.post_title|safe }}</h4>
+        <p class="post-description">{{ post.post_desc|safe }}</p>
       </div>
       <div class="post-content-right">
         <img class="post-map" src="https://maps.googleapis.com/maps/api/staticmap?center={{ post.latitude }},{{ post.longitude }}&markers=|{{ post.latitude }},{{ post.longitude }}&zoom=16&size=640x480&key=AIzaSyBV3jNuAHYiFPCPRgEUJ-4SHBZxQ3c3Pr0" />
