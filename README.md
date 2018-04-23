@@ -68,3 +68,18 @@ Ctrl+C to exit.
 ```shell
 node index.js
 ```
+
+# Run the test suite
+
+1. If this is your first time running the tests, make sure to install the
+test-specific dependencies:
+
+```shell
+npm install --dev
+```
+
+2. Now you can run the tests:
+
+```shell
+npm test
+```
