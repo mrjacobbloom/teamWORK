@@ -163,5 +163,9 @@ function post(path, data) {
   await run_tests();
   agent.destroy();
   console.log(`Testing completed with ${errs.length} errors.`);
-  process.exit(0);
+  if(errs.length > 0) {
+    process.exit(1);
+  } else {
+    process.exit(0);
+  }
 })();
