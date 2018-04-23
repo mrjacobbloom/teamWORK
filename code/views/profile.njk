@@ -1,5 +1,11 @@
 {% extends "templates/skeleton.njk" %}
 {% set title = profile.username %}
+{% block head %}
+<link rel="stylesheet" href="/journal.css">
+{% endblock %}
 {% block content %}
-<strong>{{ profile.username }}</strong> is a user on Natural Neighbors.
+{% from "templates/post.njk" import post with context %}
+{% for post_data in posts %}
+  {{ post(post_data, false) }}
+{% endfor %}
 {% endblock %}

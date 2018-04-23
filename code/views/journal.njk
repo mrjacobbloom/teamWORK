@@ -6,50 +6,11 @@
 <script src="/journal.js"></script>
 {% endblock %}
 {% block content %}
+{% from "templates/post.njk" import post with context %}
+{{ post(null, true) }}
 
-<form method="post">
-  <div class="post" id="new-post">
-    <span class="post-username">{{ user.username }}</span>
-    <hr/>
-    <div class="post-content">
-      <div class="post-content-left">
-        <h4 class="post-title">
-          <input name="post_title" class="post-title-input" placeholder="I saw a..." />
-        </h4>
-        <p class="post-description">
-          <textarea name="post_desc" class="post-description-input" placeholder="And this is why it was cool..."></textarea>
-        </p>
-        <div class="post-submit-button-container">
-          <button class="button post-submit-button" type="submit">Post</button>
-        </div>
-      </div>
-      <div class="post-content-right">
-        <button class="button post-getLocation-button" type="button">Use my current location</button>
-        <div class="post-map"></div>
-        <input type="hidden" name="latitude" />
-        <input type="hidden" name="longitude" />
-      </div>
-    </div>
-  </div>
-</form>
-
-{% for post in posts %}
-  <div class="post">
-    <span class="post-username">{{ post.username }}</span>
-    <span class="post-timestamp">{{ timeSince(post.post_date) }}</span>
-    <hr/>
-    <div class="post-content">
-      <div class="post-content-left">
-        <h4 class="post-title">{{ post.post_title|safe }}</h4>
-        <p class="post-description">{{ post.post_desc|safe }}</p>
-      </div>
-      <div class="post-content-right">
-        <img class="post-map" src="https://maps.googleapis.com/maps/api/staticmap?center={{ post.latitude }},{{ post.longitude }}&markers=|{{ post.latitude }},{{ post.longitude }}&zoom=16&size=640x480&key=AIzaSyBV3jNuAHYiFPCPRgEUJ-4SHBZxQ3c3Pr0" />
-      </div>
-    </div>
-  </div>
+{% for post_data in posts %}
+  {{ post(post_data, false) }}
 {% endfor %}
-
-
 
 {% endblock %}

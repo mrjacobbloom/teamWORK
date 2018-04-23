@@ -58,6 +58,11 @@
 
 .post-username {
   font-weight: bold;
+  text-decoration: none;
+  color: black;
+  &:hover {
+    text-decoration: underline;
+  }
 }
 
 .post-timestamp {

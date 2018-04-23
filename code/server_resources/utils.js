@@ -1,8 +1,9 @@
 module.exports = {
-  genContext: function(req) {
-    var errors = null;
-    if(req.query && req.query.errors) {
-      errors = JSON.parse(req.query.errors);
+  genContext: function(req, errors = []) {
+    if(!Array.isArray(errors)) {
+      errors = [errors];
+    } else if(req.query && req.query.errors) {
+      errors = errors.concat(JSON.parse(req.query.errors));
     }
     return {
       user: req.session.user || null,

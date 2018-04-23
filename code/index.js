@@ -57,9 +57,9 @@ app.get('/', (req, res) => {
     let data = utils.genContext(req);
     data.timeSince = utils.timeSince;
   	req.getConnection(function(error, conn) {
-  		conn.query('SELECT * FROM data WHERE username = "' + req.session.user.username + '" ORDER BY post_date DESC', function(err, rows, fields) {
+  		conn.query('SELECT * FROM data ORDER BY post_date DESC LIMIT 20', function(err, rows, fields) {
   			if (err) {
-  				req.flash('error', err)
+  				es.render('landingpage.njk', utils.genContext(req, err));
   			} else {
   				data.posts = rows;
   				res.render('journal.njk', data);
@@ -106,11 +106,30 @@ app.post('/', function (req, res) {
 app.get('/about', (req, res) => res.render('about.njk', utils.genContext(req)));
 
 app.get('/user/:id', (req, res) => {
-  let data = Object.assign({}, utils.genContext(req));
-  data.profile = {
-    username: req.params.id
-  };
-  res.render('profile.njk', data);
+  let data = utils.genContext(req);
+  let username = expressValidator.validator.escape(req.params.id);
+  req.getConnection(function(error, conn) {
+    conn.query('SELECT * FROM users WHERE username = "' + username + '" LIMIT 1', function(err, rows, fields) {
+        if (err) {
+          res.redirect(utils.passErrors('/', err));
+        } else {
+          if(rows.length) {
+            conn.query('SELECT * FROM data WHERE username = "' + username + '" ORDER BY post_date DESC LIMIT 20', function(err, rows, fields) {
+              if (err) {
+                res.redirect(utils.passErrors('/', err));
+              } else {
+                data.profile = {username: username};
+                data.posts = rows;
+                data.timeSince = utils.timeSince;
+                res.render('profile.njk', data);
+              }
+            });
+          } else {
+            res.render('404.njk', data);
+          }
+        }
+      });
+  });
 });
 app.get('/login', (req, res) => res.render('login.njk', utils.genContext(req)));
 app.get('/register', (req, res) => res.render('register.njk', utils.genContext(req)));
@@ -119,7 +138,7 @@ app.get('/register', (req, res) => res.render('register.njk', utils.genContext(r
 app.post('/login', function (req, res) {
 	req.getConnection(function(error, conn) {
 		let username = req.body.username.toLowerCase();
-		conn.query('SELECT * FROM users WHERE username = "' + username + '"', function(err, rows, fields) {
+		conn.query('SELECT * FROM users WHERE username = "' + username + '" LIMIT 1', function(err, rows, fields) {
 			if (err) {
 				req.flash('error', err)
 			} else {
@@ -158,7 +177,7 @@ app.post('/register', function (req, res) {
         };
         
         req.getConnection(function(error, conn) {
-          conn.query('SELECT * FROM users WHERE username = "' + user.username + '"', function(err, rows, fields) {
+          conn.query('SELECT * FROM users WHERE username = "' + user.username + '" LIMIT 1', function(err, rows, fields) {
               if (err) {
                 res.redirect(utils.passErrors('/register', err));
               } else {
