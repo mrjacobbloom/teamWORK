@@ -1,7 +1,12 @@
 module.exports = {
-  genContext: function(session) {
+  genContext: function(req) {
+    var errors = null;
+    if(req.query && req.query.errors) {
+      errors = JSON.parse(req.query.errors);
+    }
     return {
-      user: session.user || null
+      user: req.session.user || null,
+      errors: errors
     };
   },
   timeSince: function(date) { // https://stackoverflow.com/a/3177838/1784306
@@ -35,5 +40,13 @@ module.exports = {
     }
     var now = new Date();
     return `${now.getFullYear()}-${padLeft(now.getMonth() + 1)}-${padLeft(now.getDate())}`;
+  },
+  passErrors: function(path, errors) {
+    if(!Array.isArray(errors)) errors = [errors];
+    for(let i in errors) {
+      errors[i] = errors[i].msg || errors[i].toString();
+    }
+    errorsEncoded = encodeURIComponent(JSON.stringify(errors));
+    return path + '?errors=' + errorsEncoded;
   }
 }

@@ -20,6 +20,17 @@ body {
     }
 }
 
+.error {
+	background: pink;
+	border: 1px solid red;
+	color: red;
+	padding: 8px;
+	margin: 5px 0;
+	border-radius: 5px;
+	text-align: center;
+	font-weight: bold;
+}
+
 .clearfix::after {
 	clear: both;
 }

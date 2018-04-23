@@ -29,6 +29,13 @@
       </div>
       {% include "templates/navbar.njk" %}
       <div id="content">
+        {% if errors %}
+          {% for error in errors %}
+            <div class="error">
+              {{ error }}
+            </div>
+          {% endfor %}
+        {% endif %}
         {% if title %}
           <h2 id="pagetitle">{{title}}</h2>
         {% endif %}

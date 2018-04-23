@@ -54,14 +54,13 @@ app.get('/', (req, res) => {
   if(req.session.user) {
     // create a new object as a shallow copy of the session object
     // but we want to attach more data to it
-    let data = utils.genContext(req.session);
+    let data = utils.genContext(req);
     data.timeSince = utils.timeSince;
   	req.getConnection(function(error, conn) {
   		conn.query('SELECT * FROM data WHERE username = "' + req.session.user.username + '" ORDER BY post_date DESC', function(err, rows, fields) {
   			if (err) {
   				req.flash('error', err)
   			} else {
-  				console.log(rows);
   				data.posts = rows;
   				res.render('journal.njk', data);
   			}
@@ -69,23 +68,20 @@ app.get('/', (req, res) => {
   	});	
     
   } else {
-    res.render('landingpage.njk', utils.genContext(req.session));
+    res.render('landingpage.njk', utils.genContext(req));
   }
 });
 app.post('/', function (req, res) {
-    console.log(req.body);
-    //req.session.user = {username: req.body.username_or_email};
-    
-    req.assert('username', 'username is required').notEmpty();
-    req.assert('post_title', 'post title is required').notEmpty();
-    req.assert('post_desc', 'post description is required').notEmpty();
-    req.assert('latitude', 'latitude is required').notEmpty();
-    req.assert('longitude', 'longitude is required').notEmpty();
+    req.assert('username', 'Username is required').notEmpty();
+    req.assert('post_title', 'Post title is required').notEmpty();
+    req.assert('post_desc', 'Post description is required').notEmpty();
+    req.assert('latitude', 'Latitude is required').notEmpty();
+    req.assert('longitude', 'Longitude is required').notEmpty();
     
     var errors = req.validationErrors();
     
     if(!errors) {
-        var user = {
+        var post = {
             username: req.sanitize('username').escape().trim().toLowerCase(),
             post_title: req.sanitize('post_title').escape().trim(),
             post_desc: req.sanitize('post_desc').escape().trim(),
@@ -95,29 +91,30 @@ app.post('/', function (req, res) {
         };
         
         req.getConnection(function(error, conn) {
-            conn.query('INSERT INTO data SET ?', user, function(err, result) {
+            conn.query('INSERT INTO data SET ?', post, function(err, result) {
                 if (err) {
-                    req.flash('error', err)
+                    res.redirect(utils.passErrors('/', err));
                 } else {
-                    // log them in here
                     res.redirect('/');
                 }
             });
         });
+    } else {
+      res.redirect(utils.passErrors('/', errors));
     }
 });
 
-app.get('/about', (req, res) => res.render('about.njk', utils.genContext(req.session)));
+app.get('/about', (req, res) => res.render('about.njk', utils.genContext(req)));
 
 app.get('/user/:id', (req, res) => {
-  let data = Object.assign({}, utils.genContext(req.session));
+  let data = Object.assign({}, utils.genContext(req));
   data.profile = {
     username: req.params.id
   };
   res.render('profile.njk', data);
 });
-app.get('/login', (req, res) => res.render('login.njk', utils.genContext(req.session)));
-app.get('/register', (req, res) => res.render('register.njk', utils.genContext(req.session)));
+app.get('/login', (req, res) => res.render('login.njk', utils.genContext(req)));
+app.get('/register', (req, res) => res.render('register.njk', utils.genContext(req)));
 
 /** SESSION STUFF **/
 app.post('/login', function (req, res) {
@@ -133,22 +130,19 @@ app.post('/login', function (req, res) {
 						req.session.user = {username: username};
 						res.redirect('/');
 					} else { // username incorrect
-						res.redirect('/login'); // TODO: add an error
+						res.redirect(utils.passErrors('/login', "Password incorrect"));
 					}
 				} else { // there are no users with that username
-					res.redirect('/login'); // TODO: add an error
+					res.redirect(utils.passErrors('/login', "Username not found"));
 				}
 			}
 		});
 	});
 });
 
-app.post('/register', function (req, res) {
-    console.log(req.body);
-    //req.session.user = {username: req.body.username_or_email};
-    
-    req.assert('username', 'username is required').notEmpty();
-    req.assert('password', 'password is required').notEmpty();
+app.post('/register', function (req, res) {    
+    req.assert('username', 'Username is required').notEmpty();
+    req.assert('password', 'Password is required').notEmpty();
     
     var errors = req.validationErrors();
     
@@ -164,13 +158,14 @@ app.post('/register', function (req, res) {
         req.getConnection(function(error, conn) {
             conn.query('INSERT INTO users SET ?', user, function(err, result) {
                 if (err) {
-                    req.flash('error', err)
+                    res.redirect(utils.passErrors('/register', err));
                 } else {
-                    // log them in here
                     res.redirect('/login');
                 }
             });
         });
+    } else {
+      res.redirect(utils.passErrors('/register', errors));
     }
 });
   
@@ -180,7 +175,7 @@ app.get('/logout', function (req, res) {
   res.redirect('/');
 });
 
-app.get('*', (req, res) => res.render('404.njk', utils.genContext(req.session)));
+app.get('*', (req, res) => res.render('404.njk', utils.genContext(req)));
 
 var port = process.env.PORT || 3000;
 app.listen(port, () => {
