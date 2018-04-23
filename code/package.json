@@ -5,7 +5,8 @@
   "main": "index.js",
   "scripts": {
     "postinstall": "mysql -u root --password=\"\" < sql/db.sql",
-    "test": "node test.js"
+    "test": "node test.js",
+    "start": "node index.js"
   },
   "author": "Jacob Bloom",
   "license": "ISC",

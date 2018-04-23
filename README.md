@@ -52,7 +52,7 @@ cd code
 3. Start the server:
 
 ```shell
-node index.js
+npm start
 ```
 
 # Run the test suite
