@@ -5,6 +5,7 @@ async function run_tests() {
     let loginButtons = $('#navbar a[href="/login"]')
     assert(loginButtons.length == 1, "No login button on first load");
   });
+  // try logging in
   await post('/login', {
     username: 'robert',
     password: '1234'
@@ -31,6 +32,7 @@ const querystring = require('querystring');
 const cheerio = require('cheerio');
 const agent = new http.Agent({ keepAlive: true });
 const _port = 3001;
+var cookie;
 function execfile(path) { // adapted from https://stackoverflow.com/a/8808328/1784306
   var data = fs.readFileSync(path);
   var script = vm.createScript(data, path);
@@ -54,7 +56,15 @@ function assert(bool, err) { // usage: assert(output == 1, "Output is not 1");
 }
 function get(path, callback) {
   return new Promise(resolve => {
-    http.get({hostname: 'localhost', port: _port, path: path, agent: agent}, res => {
+    var options = {
+      hostname: 'localhost',
+      port: _port,
+      path: path,
+      agent: agent
+    };
+    if(cookie) options.headers = {'Cookie': cookie};
+    http.get(options, res => {
+      if(res.headers['set-cookie']) cookie = res.headers['set-cookie'][0];
       res.setEncoding('utf8');
       var body = '';
       res.on('data', data => {
@@ -82,7 +92,9 @@ function post(path, data) {
         'Content-Length': Buffer.byteLength(data_string)
       }
     };
+    if(cookie) options.headers['Cookie'] = cookie;
     var request = http.request(options, res => {
+      if(res.headers['set-cookie']) cookie = res.headers['set-cookie'][0];
       res.on('data', () => {
         resolve();
       });
