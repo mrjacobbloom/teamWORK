@@ -52,9 +52,6 @@
   height: 80px;
   resize: none;
 }
-.post-submit-button-container {
-  text-align: center;
-}
 
 .post-username {
   font-weight: bold;
@@ -73,9 +70,6 @@
 .post-map {
   width: 400px;
   height: 300px;
-}
-.button {
-  margin: initial !important;
 }
 
 @media (max-width: $widescreen-width + 20px ) {
