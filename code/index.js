@@ -22,7 +22,7 @@ var dbOptions = {
  port: config.database.port,
  database: config.database.db
 };
-app.use(myConnection(mysql, dbOptions, 'pool'));
+app.use(myConnection(mysql, process.env.JAWSDB_URL || dbOptions, 'pool'));
 
 nunjucks.configure('views', {
     autoescape: true,
