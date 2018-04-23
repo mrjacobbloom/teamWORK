@@ -71,6 +71,10 @@ node index.js
 
 # Run the test suite
 
+Note: the test suite uses some newer JS features. if you get errors like
+"unexpected token function" then you'll need to run the test suite on a newer
+version of Node.js (7.6 or newer).
+
 1. If this is your first time running the tests, make sure to install the
 test-specific dependencies:
 

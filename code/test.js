@@ -1,19 +1,59 @@
 async function run_tests() {
-  
+  await get('/abcde', $ => {
+    // test the 404 page
+    let title = $('title').text();
+    assert(title.includes("Page Not Found"), "/abcde doesn't give 404 page");
+  });
   await get('/', $ => {
     // make sure we start out logged out by testing for the login button
-    let loginButtons = $('#navbar a[href="/login"]')
-    assert(loginButtons.length == 1, "No login button on first load");
+    let loginButton = $('#navbar a[href="/login"]')
+    assert_exists(loginButton, "No login button on first load");
   });
-  // try logging in
+  // try invalid login
+  await post('/login', {
+    username: 'robert',
+    password: 'fitfullsOfSpaghettiThrownViolentlyAtMyFriends'
+  });
+  await get('/', $ => {
+    // make sure we're still logged out by testing for the login button
+    let loginButton = $('#navbar a[href="/login"]')
+    assert_exists(loginButton, "Logged in after bad login");
+  });
+  // try valid login
   await post('/login', {
     username: 'robert',
     password: '1234'
   });
   await get('/', $ => {
-    // make sure we start out logged out by testing for the login button
-    let loginButtons = $('#navbar a[href="/login"]')
-    assert(loginButtons.length == 0, "Login button after login");
+    // now that we're logged in, check that the login button is gone
+    let loginButton = $('#navbar a[href="/login"]');
+    assert_not_exists(loginButton, "Login button exists after login");
+    
+    // confirm that the user dropdown exists
+    let userDropdown = $('#navbar .dropdown');
+    assert_exists(userDropdown, "User dropdown not found after login");
+    
+    // confirm that new post prompt exists
+    let newPost = $('#new-post');
+    assert_exists(newPost, "New post prompt doesn't exist after login");
+    
+    // confirm that new post prompt exists
+    let prevPost = $('.post:not(#new-post)');
+    assert_exists(prevPost, "No previous posts on journal page after login");
+  });
+  // try posting to journal
+  let randTitle = 'test post ' + Math.random();
+  await post('/', {
+      username: 'robert',
+      post_title: randTitle,
+      post_desc: 'test post description',
+      latitude: 0,
+      longitude: 0
+  });
+  await get('/', $ => {
+    // see if our post is in the list thing
+    let myPost = $(`.post-title:contains(${randTitle})`);
+    assert_exists(myPost, "Post not added to post list");
   });
   
 }
@@ -54,6 +94,12 @@ function assert(bool, err) { // usage: assert(output == 1, "Output is not 1");
     errs.push(err);
   }
 }
+function assert_exists(node, err) {
+  assert(node.length >= 1, err);
+}
+function assert_not_exists(node, err) {
+  assert(node.length == 0, err);
+} 
 function get(path, callback) {
   return new Promise(resolve => {
     var options = {
