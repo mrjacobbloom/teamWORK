@@ -26,13 +26,14 @@ git clone https://github.com/mrjacobbloom/teamWORK.git
 
 2. [Install NodeJS](https://nodejs.org/en/download/package-manager/)
 3. [Install npm](https://docs.npmjs.com/getting-started/installing-node)
-4. Navigate into the `code` folder:
+4. [Make sure mysql is running.](https://coolestguidesontheplanet.com/start-stop-mysql-from-the-command-line-terminal-osx-linux/)
+5. Navigate into the `code` folder:
 
 ```shell
 cd code
 ```
 
-5. Install the dependencies:
+6. Install the dependencies:
 
 ```shell
 npm install
@@ -48,22 +49,7 @@ cd code
 
 2. [Make sure mysql is running.](https://coolestguidesontheplanet.com/start-stop-mysql-from-the-command-line-terminal-osx-linux/)
 
-3. Initialize the database:
-
-```shell
-sudo mysql -u root -p
-```
-It'll prompt you twice for a password. The first time, enter your computer password.
-The second time just hit enter. Then, enter the following into mysql:
-
-```mysql
-source sql/users.sql
-source sql/data.sql
-```
-
-Ctrl+C to exit.
-
-4. Start the server:
+3. Start the server:
 
 ```shell
 node index.js
