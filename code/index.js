@@ -72,7 +72,6 @@ app.get('/', (req, res) => {
   }
 });
 app.post('/', function (req, res) {
-    req.assert('username', 'Username is required').notEmpty();
     req.assert('post_title', 'Post title is required').notEmpty();
     req.assert('post_desc', 'Post description is required').notEmpty();
     req.assert('latitude', 'Latitude is required').notEmpty();
@@ -82,7 +81,7 @@ app.post('/', function (req, res) {
     
     if(!errors) {
         var post = {
-            username: req.sanitize('username').escape().trim().toLowerCase(),
+            username: req.session.user.username,
             post_title: req.sanitize('post_title').escape().trim(),
             post_desc: req.sanitize('post_desc').escape().trim(),
             latitude: req.sanitize('latitude').escape().trim(),

@@ -44,16 +44,23 @@ async function run_tests() {
   // try posting to journal
   let randTitle = 'test post ' + Math.random();
   await post('/', {
-      username: 'robert',
       post_title: randTitle,
       post_desc: 'test post description',
       latitude: 0,
       longitude: 0
   });
+  // try invalid post
+  let randTitle2 = 'test post ' + Math.random();
+  await post('/', {
+      post_title: randTitle2
+  });
   await get('/', $ => {
-    // see if our post is in the list thing
+    // see if our valid post is in the list thing
     let myPost = $(`.post-title:contains(${randTitle})`);
     assert_exists(myPost, "Post not added to post list");
+    
+    let myPost2 = $(`.post-title:contains(${randTitle2})`);
+    assert_not_exists(myPost2, "Invalid post added to post list");
   });
   
 }
