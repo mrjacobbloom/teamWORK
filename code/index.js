@@ -158,18 +158,18 @@ app.post('/register', function (req, res) {
         };
         
         req.getConnection(function(error, conn) {
-          conn.query(`SELECT * FROM users WHERE username = "${user.username}"`, function(err, result) {
+          conn.query('SELECT * FROM users WHERE username = "' + user.username + '"', function(err, rows, fields) {
               if (err) {
                 res.redirect(utils.passErrors('/register', err));
               } else {
-                if(result.length) {
+                if(rows.length) {
                   res.redirect(utils.passErrors('/register', `The username "${user.username}" is not available`));
                 } else {
                   conn.query('INSERT INTO users SET ?', user, function(err, result) {
                     if (err) {
                       res.redirect(utils.passErrors('/register', err));
                     } else {
-                      req.session.user = {username: username};
+                      req.session.user = {username: user.username};
                       res.redirect('/');
                     }
                   });
