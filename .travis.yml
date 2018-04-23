@@ -1,5 +1,4 @@
 language: node_js
-sudo: required
 services:
   - mysql
 node_js:
