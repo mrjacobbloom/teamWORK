@@ -142,6 +142,9 @@ app.post('/login', function (req, res) {
 app.post('/register', function (req, res) {    
     req.assert('username', 'Username is required').notEmpty();
     req.assert('password', 'Password is required').notEmpty();
+    req.assert('email', 'Email is required').notEmpty();
+    req.assert('state', 'State is required').notEmpty();
+    req.assert('zipcode', 'Zip code is required').notEmpty();
     
     var errors = req.validationErrors();
     
@@ -155,13 +158,24 @@ app.post('/register', function (req, res) {
         };
         
         req.getConnection(function(error, conn) {
-            conn.query('INSERT INTO users SET ?', user, function(err, result) {
-                if (err) {
-                    res.redirect(utils.passErrors('/register', err));
+          conn.query(`SELECT * FROM users WHERE username = "${user.username}"`, function(err, result) {
+              if (err) {
+                res.redirect(utils.passErrors('/register', err));
+              } else {
+                if(result.length) {
+                  res.redirect(utils.passErrors('/register', `The username "${user.username}" is not available`));
                 } else {
-                    res.redirect('/login');
+                  conn.query('INSERT INTO users SET ?', user, function(err, result) {
+                    if (err) {
+                      res.redirect(utils.passErrors('/register', err));
+                    } else {
+                      req.session.user = {username: username};
+                      res.redirect('/');
+                    }
+                  });
                 }
-            });
+              }
+          });
         });
     } else {
       res.redirect(utils.passErrors('/register', errors));
