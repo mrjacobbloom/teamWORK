@@ -57,7 +57,7 @@ npm start
 
 # Run the test suite
 
-Note: the test suite uses some newer JS features. if you get errors like
+Note: the test suite uses some newer JS features. If you get errors like
 "unexpected token function" then you'll need to run the test suite on a newer
 version of Node.js (7.6 or newer).
 
