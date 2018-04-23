@@ -107,6 +107,8 @@ app.post('/', function (req, res) {
     }
 });
 
+app.get('/about', (req, res) => res.render('about.njk', utils.genContext(req.session)));
+
 app.get('/user/:id', (req, res) => {
   let data = Object.assign({}, utils.genContext(req.session));
   data.profile = {

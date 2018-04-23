@@ -3,10 +3,7 @@
 /** the whoooole page **/
 body {
 	background-image:url('nature.jpg');
-	/**changed opacity**/
-	opacity: 0.75;
-	/**changed background size**/
-	backgroun-size: cover;
+	background-size: cover;
 	background-attachment: fixed;
 	color: white;
 	font-family: $sans;
