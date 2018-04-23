@@ -180,6 +180,8 @@ app.get('/logout', function (req, res) {
   res.redirect('/');
 });
 
+app.get('*', (req, res) => res.render('404.njk', utils.genContext(req.session)));
+
 var port = process.env.PORT || 3000;
 app.listen(port, () => {
   console.log(`Running at http://localhost:${port}/`);

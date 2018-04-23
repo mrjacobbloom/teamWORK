@@ -1,0 +1,17 @@
+{% extends "templates/skeleton.njk" %}
+{% set title = "Page Not Found" %}
+{% block head %}
+<script>
+window.addEventListener('load', () => {
+  window.setTimeout(() => {
+    location.pathname = '/';
+  }, 5000)
+})
+</script>
+{% endblock %}
+{% block content %}
+  <p>
+    The page you're looking for could not be found. You'll be redirected to the
+    homepage in a few seconds.
+  </p>
+{% endblock %}
