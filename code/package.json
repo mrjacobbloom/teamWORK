@@ -4,7 +4,7 @@
   "description": "server for teamWORK's website, \"Natural Neighbors\"",
   "main": "index.js",
   "scripts": {
-    "postinstall": "sudo mysql -u root --password=\"\" < sql/db.sql",
+    "postinstall": "mysql -u root --password=\"\" < sql/db.sql",
     "test": "node test.js"
   },
   "author": "Jacob Bloom",
