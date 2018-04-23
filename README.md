@@ -1,5 +1,7 @@
 # teamWORK
 
+[![Build Status](https://travis-ci.org/mrjacobbloom/teamWORK.svg?branch=master)](https://travis-ci.org/mrjacobbloom/teamWORK) [![Heroku](http://heroku-badge.herokuapp.com/?app=natural-neighbors&style=flat&svg=1)](https://natural-neighbors.herokuapp.com/)
+
 Hi, we're teamWORK, a collective of enterprising, industry-disrupting young
 students in CSCI 3308 (section 104, group 2). Our incredible code and great
 ideas will go in this repository!
