@@ -1,6 +1,23 @@
 var map, marker, latlng;
 
 function initMap() {
+  var getLocationButton = document.querySelector('.post-getLocation-button');
+  if(navigator.permissions) {
+    navigator.permissions.query({'name': 'geolocation'}).catch(err => {
+      showError("You must enable location services to use Natural Neighbors.");
+    }).then(status => {
+      if(status.state == "prompt") {
+        getLocationButton.addEventListener('click', initGetPosition);
+      } else if(status.state == "granted") {
+        initGetPosition();
+      } else { // denied
+        showError("You must enable location services to use Natural Neighbors.");
+      }
+    })
+  } else {
+    getLocationButton.addEventListener('click', initGetPosition);
+  }
+  
   var uluru = latlng || {lat: 40.689254, lng: -74.0445};
   var contentRight = document.querySelector('#new-post .post-content-right');
   map = new google.maps.Map(contentRight.querySelector('.post-map'), {
@@ -20,8 +37,6 @@ function initMap() {
     contentRight.querySelector('input[name="longitude"]').value = latlng.lng;
   });
 }
-
-
 
 
 // Adapted from a demo by w3schools
@@ -44,21 +59,11 @@ function initGetPosition() {
 }
 
 window.addEventListener('load', () => {
-  var getLocationButton = document.querySelector('.post-getLocation-button');
-  if(navigator.permissions) {
-    navigator.permissions.query({'name': 'geolocation'}).catch(err => {
-      showError("You must enable location services to use Natural Neighbors.");
-    }).then(status => {
-      if(status.state == "prompt") {
-        getLocationButton.addEventListener('click', initGetPosition);
-      } else if(status.state == "granted") {
-        initGetPosition();
-      } else { // denied
-        showError("You must enable location services to use Natural Neighbors.");
-      }
-    })
+  if(google && google.maps) {
+    initMap();
   } else {
-    getLocationButton.addEventListener('click', initGetPosition);
+    let script = document.querySelector('#google-maps-api');
+    script.addEventListener('load', initMap);
   }
 });
 
