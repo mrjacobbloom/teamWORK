@@ -11,6 +11,7 @@
   "author": "Jacob Bloom",
   "license": "ISC",
   "dependencies": {
+    "bad-language-filter": "^1.0.2",
     "body-parser": "^1.18.2",
     "express": "^4.16.2",
     "express-myconnection": "^1.0.4",

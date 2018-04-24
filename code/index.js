@@ -81,6 +81,8 @@ app.post('/', function (req, res) {
     req.assert('latitude', 'Latitude must be a number').isFloat();
     req.assert('longitude', 'Longitude is required').notEmpty();
     req.assert('longitude', 'Longitude must be a number').isFloat();
+    req.assert('post_title', 'Please keep it clean').custom(utils.blfilter);
+    req.assert('post_desc', 'Please keep it clean').custom(utils.blfilter);
     
     var errors = req.validationErrors();
     
@@ -177,6 +179,7 @@ app.post('/login', function (req, res) {
 app.post('/register', function (req, res) {    
     req.assert('username', 'Username must be 1-30 characters').isLength({min: 1, max: 30});
     req.assert('username', 'Username must be only letters and numbers').isAlphanumeric();
+    req.assert('username', 'Please keep it clean').custom(utils.blfilter);
     req.assert('password', 'Password is required').notEmpty();
     req.assert('password', 'Password is required').isLength({max: 20});
     req.assert('email', 'Email is required').notEmpty();

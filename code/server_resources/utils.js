@@ -1,3 +1,7 @@
+const BadLanguageFilter = require('bad-language-filter');
+
+var filter = new BadLanguageFilter();
+
 module.exports = {
   genContext: function(req, errors = []) {
     if(!Array.isArray(errors)) {
@@ -53,5 +57,8 @@ module.exports = {
   },
   postQuery: function(username) {
     return `SELECT * FROM data ${(username !== undefined) ? `WHERE username = "${username}"` : ''} ORDER BY post_date DESC LIMIT 20`;
+  },
+  blfilter: function(content) {
+    return !filter.contains(content);
   }
 }
