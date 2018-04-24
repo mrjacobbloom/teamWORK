@@ -11,16 +11,19 @@
 {% if user %}
 {{ post(null, true) }}
 {% else %}
-<p>Do you get super excited when you see the biggest hawk ever?!
-  So do we!
-  Tell us all about your Natural Neighbors in your Wildlife Journal!</p>
-  {{ post(dummy, false) }}
-<p>View other Nature Fans' posts to find out where you can go to see what they saw!
-  Register now to start sharing!</p>
-  
-<div class="button-wrapper">
-  <a href='/register' class="button">Click here to sign up!</a>
-</div>
+  <div class="dummy-post-wrapper">
+    {{ post(dummy, false) }}
+    <div class="dummy-post-overlay">
+      <div>
+        <p>Do you get super excited when you see the biggest hawk ever?!
+          So do we!
+          Tell us all about your Natural Neighbors in your Wildlife Journal!</p>
+        <p>View other Nature Fans' posts to find out where you can go to see what they saw!
+          Register now to start sharing!</p>
+        <a href='/register' class="button button-big">Sign Up</a>
+      </div>
+    </div>
+  </div>
 {% endif %}
 
 {% for post_data in posts %}

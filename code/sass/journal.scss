@@ -76,6 +76,42 @@
   height: 300px;
 }
 
+.dummy-post-wrapper {
+  position: relative;
+}
+.dummy-post-overlay {
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  position: absolute;
+  top: 0;
+  left: 0;
+  bottom: 0;
+  right: 0;
+  border-radius: 5px;
+  background-color: rgba(0,0,0,0.6);
+  text-align: center;
+  vertical-align: middle;
+  padding: 50px;
+  opacity: 1;
+  animation-name: fadeIn;
+  animation-duration: 5s;
+  animation-timing-function: ease-out;
+  animation-iteration-count: 1;
+  p {
+    font-size: 13pt;
+  }
+}
+@keyframes fadeIn {
+  0% {opacity: 0;}
+  60% {opacity: 0;}
+  100% {opacity: 1;}
+}
+.button-big {
+  font-size: 14pt;
+  padding: 15px;
+}
+
 @media (max-width: $widescreen-width + 20px ) {
   .post-content {
     display: block;
