@@ -65,8 +65,8 @@ app.get('/', (req, res) => {
           username: 'your name here',
           post_title: 'I saw a squirrel!',
           post_desc: 'It had a super bushy tail and no financial worries!',
-          latitude: 40.6892534,
-          longitude: -74.0466891,
+          latitude: 40.689254,
+          longitude: -74.0445,
           post_date: new Date()
         }
 				res.render('journal.njk', data);
