@@ -27,6 +27,8 @@
 }
 .post-content-left {
   flex-basis: 50%;
+  max-height: 300px;
+  overflow-y: scroll;
 }
 .post-content-right {
   flex-basis: 50%;

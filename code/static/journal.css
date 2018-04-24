@@ -21,7 +21,9 @@
     margin-top: 0; }
 
 .post-content-left {
-  flex-basis: 50%; }
+  flex-basis: 50%;
+  max-height: 300px;
+  overflow-y: scroll; }
 
 .post-content-right {
   flex-basis: 50%;
@@ -39,7 +41,8 @@
 .post-description, .post-description-input {
   width: 100%;
   font-size: 16px;
-  white-space: pre-line; }
+  white-space: pre-line;
+  word-break: break-all; }
 
 .post-description-input {
   border: 1px solid #ddd;
