@@ -75,10 +75,12 @@ app.get('/', (req, res) => {
 	});	
 });
 app.post('/', function (req, res) {
-    req.assert('post_title', 'Post title is required').notEmpty();
-    req.assert('post_desc', 'Post description is required').notEmpty();
+    req.assert('post_title', 'Post title must be 1-50 characters').isLength({min: 1, max: 50});
+    req.assert('post_desc', 'Post description must be 1-250 characters').isLength({min: 1, max: 250});
     req.assert('latitude', 'Latitude is required').notEmpty();
+    req.assert('latitude', 'Latitude must be a number').isFloat();
     req.assert('longitude', 'Longitude is required').notEmpty();
+    req.assert('longitude', 'Longitude must be a number').isFloat();
     
     var errors = req.validationErrors();
     
@@ -108,9 +110,9 @@ app.post('/', function (req, res) {
 
 app.get('/about', (req, res) => res.render('about.njk', utils.genContext(req)));
 
-app.get('/user/:id', (req, res) => {
+app.get('/user/:userid', (req, res) => {
   let data = utils.genContext(req);
-  let username = expressValidator.validator.escape(req.params.id);
+  let username = req.sanitize('userid').escape().trim();
   req.getConnection(function(error, conn) {
     conn.query('SELECT * FROM users WHERE username = "' + username + '" LIMIT 1', function(err, rows, fields) {
         if (err) {
@@ -139,34 +141,51 @@ app.get('/register', (req, res) => res.render('register.njk', utils.genContext(r
 
 /** SESSION STUFF **/
 app.post('/login', function (req, res) {
-	req.getConnection(function(error, conn) {
-		let username = req.body.username.toLowerCase();
-		conn.query('SELECT * FROM users WHERE username = "' + username + '" LIMIT 1', function(err, rows, fields) {
-			if (err) {
-				req.flash('error', err)
-			} else {
-				if(rows.length > 0) {
-					let user = rows[0]
-					if(user.password == req.body.password) { // username correct
-						req.session.user = {username: username};
-						res.redirect('/');
-					} else { // username incorrect
-						res.redirect(utils.passErrors('/login', "Password incorrect"));
-					}
-				} else { // there are no users with that username
-					res.redirect(utils.passErrors('/login', "Username not found"));
-				}
-			}
-		});
-	});
+  req.assert('username', 'Username must be 1-30 characters').isLength({min: 1, max: 30});
+  req.assert('username', 'Username must be only letters and numbers').isAlphanumeric();
+  req.assert('password', 'Password is required').notEmpty();
+  req.assert('password', 'Password is required').isLength({max: 20});
+  
+  var errors = req.validationErrors();
+  
+  if(!errors) {
+  	req.getConnection(function(error, conn) {
+  		let username = req.body.username.toLowerCase();
+  		conn.query('SELECT * FROM users WHERE username = "' + username + '" LIMIT 1', function(err, rows, fields) {
+  			if (err) {
+  				req.flash('error', err)
+  			} else {
+  				if(rows.length > 0) {
+  					let user = rows[0]
+  					if(user.password == req.body.password) { // username correct
+  						req.session.user = {username: username};
+  						res.redirect('/');
+  					} else { // username incorrect
+  						res.redirect(utils.passErrors('/login', "Password incorrect"));
+  					}
+  				} else { // there are no users with that username
+  					res.redirect(utils.passErrors('/login', "Username not found"));
+  				}
+  			}
+  		});
+  	});
+  } else {
+    res.redirect(utils.passErrors('/login', errors));
+  }
 });
 
 app.post('/register', function (req, res) {    
-    req.assert('username', 'Username is required').notEmpty();
+    req.assert('username', 'Username must be 1-30 characters').isLength({min: 1, max: 30});
+    req.assert('username', 'Username must be only letters and numbers').isAlphanumeric();
     req.assert('password', 'Password is required').notEmpty();
+    req.assert('password', 'Password is required').isLength({max: 20});
     req.assert('email', 'Email is required').notEmpty();
-    req.assert('state', 'State is required').notEmpty();
-    req.assert('zipcode', 'Zip code is required').notEmpty();
+    req.assert('email', 'Email must be an email address').isEmail();
+    req.assert('state', 'State is required').isLength({min: 2, max: 2});
+    req.assert('state', 'State must be only letters').isAlpha();
+    req.assert('state', 'State must be uppercase').isUppercase();
+    req.assert('zipcode', 'Zip code is required').isLength({min: 5, max: 5});
+    req.assert('zipcode', 'Zip code must be made up of numbers').isNumeric();
     
     var errors = req.validationErrors();
     
