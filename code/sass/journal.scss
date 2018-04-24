@@ -46,7 +46,8 @@
 .post-description, .post-description-input {
   width: 100%;
   font-size: 16px;
-  white-space: pre;
+  white-space: pre-line;
+  word-break: break-all;
 }
 .post-description-input {
   border: 1px solid #ddd;
