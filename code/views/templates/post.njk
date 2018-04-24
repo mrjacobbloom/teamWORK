@@ -10,14 +10,14 @@
       <div class="post-content-left">
         <h4 class="post-title">
           {%- if newPost -%}
-            <input name="post_title" class="post-title-input" placeholder="I saw a..." />
+            <input name="post_title" class="post-title-input" maxlength="50" placeholder="I saw a..." />
           {%- else -%}
             {{ data.post_title|safe }}
           {%- endif -%}
         </h4>
         <p class="post-description">
           {%- if newPost -%}
-            <textarea name="post_desc" class="post-description-input" placeholder="And this is why it was cool..."></textarea>
+            <textarea name="post_desc" class="post-description-input" maxlength="250" placeholder="And this is why it was cool..."></textarea>
           {%- else -%}
             {{ data.post_desc|safe }}
           {%- endif -%}
