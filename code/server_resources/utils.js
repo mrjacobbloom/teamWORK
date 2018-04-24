@@ -50,5 +50,8 @@ module.exports = {
     }
     errorsEncoded = encodeURIComponent(JSON.stringify(errors));
     return path + '?errors=' + errorsEncoded;
+  },
+  postQuery: function(username) {
+    return `SELECT * FROM data ${(username !== undefined) ? `WHERE username = "${username}"` : ''} ORDER BY post_date DESC LIMIT 20`;
   }
 }

@@ -51,25 +51,28 @@ app.use(session({
 app.use(expressValidator());
 
 app.get('/', (req, res) => {
-  if(req.session.user) {
-    // create a new object as a shallow copy of the session object
-    // but we want to attach more data to it
-    let data = utils.genContext(req);
-    data.timeSince = utils.timeSince;
-  	req.getConnection(function(error, conn) {
-  		conn.query('SELECT * FROM data ORDER BY post_date DESC LIMIT 20', function(err, rows, fields) {
-  			if (err) {
-  				es.render('landingpage.njk', utils.genContext(req, err));
-  			} else {
-  				data.posts = rows;
-  				res.render('journal.njk', data);
-  			}
-  		});
-  	});	
-    
-  } else {
-    res.render('landingpage.njk', utils.genContext(req));
-  }
+  let data = utils.genContext(req);
+  data.timeSince = utils.timeSince;
+	req.getConnection(function(error, conn) {
+		conn.query(utils.postQuery(), function(err, rows, fields) {
+			if (err) {
+        data.posts = [];
+        data.errors = [err];
+				res.render('journal.njk', data);
+			} else {
+				data.posts = rows;
+        data.dummy = {
+          username: 'your name here',
+          post_title: 'I saw a squirrel!',
+          post_desc: 'It had a super bushy tail and no financial worries!',
+          latitude: 40.6892534,
+          longitude: -74.0466891,
+          post_date: new Date()
+        }
+				res.render('journal.njk', data);
+			}
+		});
+	});	
 });
 app.post('/', function (req, res) {
     req.assert('post_title', 'Post title is required').notEmpty();
@@ -114,7 +117,7 @@ app.get('/user/:id', (req, res) => {
           res.redirect(utils.passErrors('/', err));
         } else {
           if(rows.length) {
-            conn.query('SELECT * FROM data WHERE username = "' + username + '" ORDER BY post_date DESC LIMIT 20', function(err, rows, fields) {
+            conn.query(utils.postQuery(username), function(err, rows, fields) {
               if (err) {
                 res.redirect(utils.passErrors('/', err));
               } else {
