@@ -81,8 +81,14 @@ app.post('/', function (req, res) {
     req.assert('latitude', 'Latitude must be a number').isFloat();
     req.assert('longitude', 'Longitude is required').notEmpty();
     req.assert('longitude', 'Longitude must be a number').isFloat();
+    
+    // content cleanliness validators
     req.assert('post_title', 'Please keep it clean').custom(utils.blfilter);
     req.assert('post_desc', 'Please keep it clean').custom(utils.blfilter);
+    req.assert('post_title', 'URLs are not allowed').not().contains('http://');
+    req.assert('post_title', 'URLs are not allowed').not().contains('https://');
+    req.assert('post_desc', 'URLs are not allowed').not().contains('http://');
+    req.assert('post_desc', 'URLs are not allowed').not().contains('https://');
     
     var errors = req.validationErrors();
     
