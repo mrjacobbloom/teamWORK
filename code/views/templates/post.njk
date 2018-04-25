@@ -1,46 +1,52 @@
 {% macro post(data, newPost) %}
-{%- if newPost %}
-<form method="post">
-{% endif %}
   <div class="post" {% if newPost -%} id="new-post" {%- endif %}>
     <a class="post-username" href="/user/{{ data.username or user.username }}">{{ data.username or user.username }}</a>
     <span class="post-timestamp">{% if not newPost -%} {{ timeSince(data.post_date) }}{%- endif %}</span>
     <hr/>
     <div class="post-content">
       <div class="post-content-left">
+        {%- if newPost %}
+        <form method="post">
+        {% endif %}
         <h4 class="post-title">
           {%- if newPost -%}
-            <input name="post_title" class="post-title-input" maxlength="50" placeholder="I saw a..." />
+            <div class="form-group">
+              <input name="post_title" class="post-title-input" maxlength="50" placeholder="I saw a..." />
+            </div>
           {%- else -%}
             {{ data.post_title|safe }}
           {%- endif -%}
         </h4>
         <p class="post-description">
           {%- if newPost -%}
-            <textarea name="post_desc" class="post-description-input" maxlength="250" placeholder="And this is why it was cool..."></textarea>
+            <div class="form-group">
+              <textarea name="post_desc" class="post-description-input" maxlength="250" placeholder="And this is why it was cool..."></textarea>
+            </div>
           {%- else -%}
             {{ data.post_desc|safe }}
           {%- endif -%}
         </p>
         {% if newPost %}
+          <input type="hidden" name="latitude" value="40.689254"/>
+          <input type="hidden" name="longitude" value="-74.0445"/>
           <div class="button-wrapper">
             <button class="button post-submit-button" type="submit">Post</button>
           </div>
+          </form>
         {% endif %}
       </div>
       <div class="post-content-right">
         {% if newPost %}
-          <button class="button post-getLocation-button" type="button">Use my current location</button>
+          <div class="error" id="post-error" hidden></div>
+          <div class="form-group post-location-search-form-group">
+            <input type="text" id="post-location-search" placeholder="Search for a location">
+            <button class="button" id="post-location-button" type="button">Current Location</button>
+          </div>
           <div class="post-map"></div>
-          <input type="hidden" name="latitude" value="40.689254"/>
-          <input type="hidden" name="longitude" value="-74.0445"/>
         {% else %}
           <img class="post-map" src="https://maps.googleapis.com/maps/api/staticmap?center={{ data.latitude }},{{ data.longitude }}&markers=|{{ data.latitude }},{{ data.longitude }}&zoom=16&size=640x480&key=AIzaSyBV3jNuAHYiFPCPRgEUJ-4SHBZxQ3c3Pr0" />
         {% endif %}
       </div>
     </div>
   </div>
-{% if newPost %}
-</form>
-{% endif %}
 {% endmacro %}

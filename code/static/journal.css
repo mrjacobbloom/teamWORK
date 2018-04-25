@@ -4,7 +4,7 @@
   margin: 16px 0;
   box-shadow: 0 2px 5px 0 rgba(0, 0, 0, 0.16), 0 2px 10px 0 rgba(0, 0, 0, 0.12);
   padding: 16px;
-  border-radius: 4px; }
+  border-radius: 5px; }
   .post * {
     box-sizing: border-box; }
 
@@ -56,13 +56,24 @@
   .post-username:hover {
     text-decoration: underline; }
 
+.post-location-search-form-group {
+  display: flex; }
+  .post-location-search-form-group .post-location-search {
+    transition: all 0.4s; }
+  .post-location-search-form-group .button {
+    margin: 0 0 0 10px;
+    white-space: nowrap;
+    transition: all 0.4s;
+    box-sizing: border-box; }
+
 .post-timestamp {
   float: right;
   color: gray; }
 
 .post-map {
   width: 400px;
-  height: 300px; }
+  height: 300px;
+  border-radius: 5px; }
 
 .dummy-post-wrapper {
   position: relative; }
