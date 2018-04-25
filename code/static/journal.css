@@ -10,8 +10,6 @@
 
 /* layout */
 .post-content {
-  margin-top: 16px;
-  clear: both;
   display: flex;
   flex-direction: row;
   flex-wrap: nowrap;
@@ -21,33 +19,59 @@
     margin-top: 0; }
 
 .post-content-left {
-  flex-basis: 50%;
-  max-height: 300px;
-  overflow-y: scroll; }
+  flex-basis: 50%; }
 
 .post-content-right {
   flex-basis: 50%;
   margin-left: 16px;
   text-align: center; }
 
-.post-title, .post-title-input {
+.post-title {
   width: 100%;
   font-size: 16px;
   font-weight: bold; }
 
-.post-title-input {
-  border: 1px solid #ddd; }
+.post-saw {
+  color: #999; }
 
-.post-description, .post-description-input {
+.post-title-input-group .input {
+  display: flex; }
+  .post-title-input-group .input a, .post-title-input-group .input .post-saw {
+    flex-grow: 0; }
+
+.post-title-input {
+  flex-grow: 1;
+  border: none;
+  outline: none;
+  font-size: 16px;
+  font-weight: bold; }
+
+.post-description-button-wrapper {
+  display: flex;
+  flex-direction: column;
+  height: 300px; }
+  .post-description-button-wrapper .form-group {
+    flex-grow: 1;
+    display: flex; }
+
+.post-description {
   width: 100%;
   font-size: 16px;
   white-space: pre-line;
-  word-break: break-word; }
+  word-break: break-word;
+  max-height: 300px;
+  overflow-y: scroll; }
 
 .post-description-input {
-  border: 1px solid #ddd;
-  height: 80px;
+  font-size: 16px;
+  min-height: 80px;
+  flex-grow: 1;
   resize: none; }
+
+.post-submit-button {
+  display: block;
+  text-align: center;
+  margin: 0; }
 
 .post-username {
   font-weight: bold;
@@ -67,7 +91,8 @@
     box-sizing: border-box; }
 
 .post-timestamp {
-  float: right;
+  font-size: 10pt;
+  font-weight: normal;
   color: gray; }
 
 .post-map {
@@ -116,8 +141,7 @@
   .post-content {
     display: block; }
   .post-content-right {
-    width: 100%; }
-  .post-content-right {
+    margin-top: 16px;
     width: 100%;
     margin-left: 0; }
   .post-map {

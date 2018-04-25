@@ -86,6 +86,13 @@
           searchbox.blur(); // idk it feels right
       }
     });
+    
+    document.querySelector('#new-post .post-title-input-group').addEventListener('click', e => {
+      var titleInput = document.querySelector('#new-post .post-title-input');
+      if(titleInput != document.activeElement) {
+        titleInput.focus();
+      }
+    });
   });
 
   function showError(error) {

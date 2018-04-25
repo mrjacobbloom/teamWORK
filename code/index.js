@@ -52,7 +52,6 @@ app.use(expressValidator());
 
 app.get('/', (req, res) => {
   let data = utils.genContext(req);
-  data.timeSince = utils.timeSince;
 	req.getConnection(function(error, conn) {
 		conn.query(utils.postQuery(), function(err, rows, fields) {
 			if (err) {
@@ -62,8 +61,8 @@ app.get('/', (req, res) => {
 			} else {
 				data.posts = rows;
         data.dummy = {
-          username: 'your name here',
-          post_title: 'I saw a squirrel!',
+          username: 'you',
+          post_title: 'squirrel!',
           post_desc: 'It had a super bushy tail and no financial worries!',
           latitude: 40.689254,
           longitude: -74.0445,
@@ -133,7 +132,6 @@ app.get('/user/:userid', (req, res) => {
               } else {
                 data.profile = {username: username};
                 data.posts = rows;
-                data.timeSince = utils.timeSince;
                 res.render('profile.njk', data);
               }
             });

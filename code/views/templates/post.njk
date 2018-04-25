@@ -1,8 +1,5 @@
 {% macro post(data, newPost) %}
   <div class="post" {% if newPost -%} id="new-post" {%- endif %}>
-    <a class="post-username" href="/user/{{ data.username or user.username }}">{{ data.username or user.username }}</a>
-    <span class="post-timestamp">{% if not newPost -%} {{ timeSince(data.post_date) }}{%- endif %}</span>
-    <hr/>
     <div class="post-content">
       <div class="post-content-left">
         {%- if newPost %}
@@ -10,30 +7,32 @@
         {% endif %}
         <h4 class="post-title">
           {%- if newPost -%}
-            <div class="form-group">
-              <input name="post_title" class="post-title-input" maxlength="50" placeholder="I saw a..." />
+            <div class="form-group post-title-input-group">
+              <div class="input">
+                <a class="post-username" href="/user/{{ user.username }}">{{ user.username }}</a>&nbsp;<span class="post-saw">saw a</span>&nbsp;<input name="post_title" class="no-bs post-title-input" maxlength="50" placeholder="bunny" />
+              </div>
             </div>
           {%- else -%}
-            {{ data.post_title|safe }}
+            <a class="post-username" href="/user/{{ data.username }}">{{ data.username }}</a>&nbsp;<span class="post-saw">saw {{ utils.aVsAn(data.post_title) }}</span>&nbsp;{{ data.post_title|safe }}
+            <div class="post-timestamp">{% if not newPost -%} {{ utils.timeSince(data.post_date) }}{%- endif %}</div>
           {%- endif -%}
         </h4>
-        <p class="post-description">
+        {% if newPost %}{% endif %}
           {%- if newPost -%}
-            <div class="form-group">
-              <textarea name="post_desc" class="post-description-input" maxlength="250" placeholder="And this is why it was cool..."></textarea>
+            <div class="post-description-button-wrapper">
+              <div class="form-group">
+                <textarea name="post_desc" class="post-description-input" maxlength="250" placeholder="And this is why it was cool..."></textarea>
+              </div>
+              <input type="hidden" name="latitude" value="40.689254"/>
+              <input type="hidden" name="longitude" value="-74.0445"/>
+              <button class="button post-submit-button" type="submit">Post</button>
             </div>
+            </form>
           {%- else -%}
-            {{ data.post_desc|safe }}
+            <p class="post-description">
+              {{ data.post_desc|safe }}
+            </p>
           {%- endif -%}
-        </p>
-        {% if newPost %}
-          <input type="hidden" name="latitude" value="40.689254"/>
-          <input type="hidden" name="longitude" value="-74.0445"/>
-          <div class="button-wrapper">
-            <button class="button post-submit-button" type="submit">Post</button>
-          </div>
-          </form>
-        {% endif %}
       </div>
       <div class="post-content-right">
         {% if newPost %}

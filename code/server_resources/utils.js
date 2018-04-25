@@ -2,6 +2,32 @@ const BadLanguageFilter = require('bad-language-filter');
 
 var filter = new BadLanguageFilter();
 
+var timeSince = function(date) { // https://stackoverflow.com/a/3177838/1784306
+  var seconds = Math.floor((new Date() - date) / 1000);
+  var interval = Math.floor(seconds / 31536000);
+  if (interval >= 1) {
+    return interval + " year" + ((interval != 1) ? "s" : "") + " ago";
+  }
+  interval = Math.floor(seconds / 2592000);
+  if (interval >= 1) {
+    return interval + " month" + ((interval != 1) ? "s" : "") + " ago";
+  }
+  interval = Math.floor(seconds / 86400);
+  if (interval >= 1) {
+    return interval + " day" + ((interval != 1) ? "s" : "") + " ago";
+  }
+  interval = Math.floor(seconds / 3600);
+  if (interval >= 1) {
+    return interval + " hour" + ((interval != 1) ? "s" : "") + " ago";
+  }
+  interval = Math.floor(seconds / 60);
+  if (interval >= 1) {
+    return interval + " minute" + ((interval != 1) ? "s" : "") + " ago";
+  }
+  interval = Math.floor(seconds);
+  return interval + " second" + ((interval != 1) ? "s" : "") + " ago";
+}
+
 module.exports = {
   genContext: function(req, errors = []) {
     if(!Array.isArray(errors)) {
@@ -11,33 +37,14 @@ module.exports = {
     }
     return {
       user: req.session.user || null,
-      errors: errors
+      errors: errors,
+      utils: {
+        timeSince: timeSince,
+        aVsAn: function(content) {
+          return (content.match(/^[aeiou]/i)) ? 'an' : 'a';
+        }
+      }
     };
-  },
-  timeSince: function(date) { // https://stackoverflow.com/a/3177838/1784306
-    var seconds = Math.floor((new Date() - date) / 1000);
-    var interval = Math.floor(seconds / 31536000);
-    if (interval >= 1) {
-      return interval + " year" + ((interval != 1) ? "s" : "") + " ago";
-    }
-    interval = Math.floor(seconds / 2592000);
-    if (interval >= 1) {
-      return interval + " month" + ((interval != 1) ? "s" : "") + " ago";
-    }
-    interval = Math.floor(seconds / 86400);
-    if (interval >= 1) {
-      return interval + " day" + ((interval != 1) ? "s" : "") + " ago";
-    }
-    interval = Math.floor(seconds / 3600);
-    if (interval >= 1) {
-      return interval + " hour" + ((interval != 1) ? "s" : "") + " ago";
-    }
-    interval = Math.floor(seconds / 60);
-    if (interval >= 1) {
-      return interval + " minute" + ((interval != 1) ? "s" : "") + " ago";
-    }
-    interval = Math.floor(seconds);
-    return interval + " second" + ((interval != 1) ? "s" : "") + " ago";
   },
   getCurrentDateString: function() {
     function padLeft(str, len = 2) {

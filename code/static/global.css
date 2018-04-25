@@ -111,7 +111,7 @@ body {
     display: inline-block;
     font-weight: bold;
     margin-bottom: .5rem; }
-  .form-group input, .form-group select, .form-group textarea {
+  .form-group input:not(.no-bs), .form-group select, .form-group textarea, .form-group .input {
     display: block;
     box-sizing: border-box;
     width: 100%;

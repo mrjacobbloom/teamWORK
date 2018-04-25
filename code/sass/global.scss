@@ -88,7 +88,7 @@ body {
     font-weight: bold;
     margin-bottom: .5rem;
   }
-  input, select, textarea {
+  input:not(.no-bs), select, textarea, .input {
     display: block;
     box-sizing: border-box;
     width: 100%;
