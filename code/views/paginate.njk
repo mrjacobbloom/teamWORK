@@ -1,0 +1,4 @@
+{% from "templates/post.njk" import post with context %}
+{% for post_data in posts %}
+  {{ post(post_data, false) }}
+{% endfor %}

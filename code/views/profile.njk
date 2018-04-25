@@ -2,10 +2,13 @@
 {% set title = profile.username %}
 {% block head %}
 <link rel="stylesheet" href="/journal.css">
+<script src="/paginate.js"></script>
 {% endblock %}
 {% block content %}
 {% from "templates/post.njk" import post with context %}
+<div id="posts-container">
 {% for post_data in posts %}
   {{ post(post_data, false) }}
 {% endfor %}
+</div>
 {% endblock %}

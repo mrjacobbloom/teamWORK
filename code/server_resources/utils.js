@@ -62,8 +62,9 @@ module.exports = {
     errorsEncoded = encodeURIComponent(JSON.stringify(errors));
     return path + '?errors=' + errorsEncoded;
   },
-  postQuery: function(username) {
-    return `SELECT * FROM data ${(username !== undefined) ? `WHERE username = "${username}"` : ''} ORDER BY post_date DESC LIMIT 20`;
+  postQuery: function(username, page = 0) {
+    const PAGE_LENGTH = 20;
+    return `SELECT * FROM data ${(username !== undefined) ? `WHERE username = "${username}"` : ''} ORDER BY post_date DESC LIMIT ${PAGE_LENGTH} OFFSET ${page * PAGE_LENGTH}`;
   },
   blfilter: function(content) {
     return !filter.contains(content);

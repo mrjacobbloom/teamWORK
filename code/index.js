@@ -114,6 +114,40 @@ app.post('/', function (req, res) {
       res.redirect(utils.passErrors('/', errors));
     }
 });
+app.get('/paginate', (req, res) => {
+  var data = utils.genContext(req);
+  var page = req.sanitize('page').escape().trim();
+  var username = undefined;
+  if(req.query.user) {
+    username = req.sanitize('user').escape().trim().toLowerCase();
+    req.assert('user', 'username bust be alphanumeric').isAlphanumeric();
+  }
+  
+  req.assert('page', 'page must be an integer').isInt();
+  
+  var errors = req.validationErrors();
+  
+  if(!errors) {
+  	req.getConnection(function(error, conn) {
+  		conn.query(utils.postQuery(username, page), function(err, rows, fields) {
+  			if (err) {
+          res.status(500);
+          res.send();
+  			} else {
+          if(rows.length){
+            data.posts = rows;
+    				res.render('paginate.njk', data);
+          } else {
+            res.send();
+          }
+  			}
+  		});
+  	});
+  } else {
+    res.status(500);
+    res.send();
+  }
+});
 
 app.get('/about', (req, res) => res.render('about.njk', utils.genContext(req)));
 
