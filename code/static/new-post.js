@@ -2,8 +2,8 @@
   var map, marker, latlng = {lat: 40.689254, lng: -74.0445}, placesService;
 
   function initMap() {
-    var contentRight = document.querySelector('#new-post .post-content-right');
-    map = new google.maps.Map(contentRight.querySelector('.post-map'), {
+    var newPost = document.querySelector('#new-post');
+    map = new google.maps.Map(newPost.querySelector('.post-map'), {
       zoom: 15,
       center: latlng
     });
@@ -15,9 +15,15 @@
     marker.addListener('dragend', () => {
       var pos = marker.getPosition();
       latlng = {lat: pos.lat(), lng: pos.lng()};
-      console.log("marker dropped", latlng)
-      contentRight.querySelector('input[name="latitude"]').value = latlng.lat;
-      contentRight.querySelector('input[name="longitude"]').value = latlng.lng;
+      newPost.querySelector('input[name="latitude"]').value = latlng.lat;
+      newPost.querySelector('input[name="longitude"]').value = latlng.lng;
+    });
+    map.addListener('click', e => {
+      var pos = e.latLng;
+      marker.setPosition(pos);
+      latlng = {lat: pos.lat(), lng: pos.lng()};
+      newPost.querySelector('input[name="latitude"]').value = latlng.lat;
+      newPost.querySelector('input[name="longitude"]').value = latlng.lng;
     });
     placesService = new google.maps.places.PlacesService(map);
   }
