@@ -1,4 +1,7 @@
 /** the whoooole page **/
+html {
+  min-height: 100%; }
+
 body {
   background-image: url("nature.jpg");
   background-attachment: fixed;
