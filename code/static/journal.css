@@ -32,7 +32,8 @@
   font-weight: bold; }
 
 .post-saw {
-  color: #999; }
+  color: #999;
+  white-space: nowrap; }
 
 .post-title-input-group .input {
   display: flex; }
@@ -44,7 +45,8 @@
   border: none;
   outline: none;
   font-size: 16px;
-  font-weight: bold; }
+  font-weight: bold;
+  min-width: 0; }
 
 .post-description-button-wrapper {
   display: flex;
