@@ -1,4 +1,4 @@
-# teamWORK
+# Natural Neighbors, by teamWORK
 
 [![Build Status](https://travis-ci.org/mrjacobbloom/teamWORK.svg?branch=master)](https://travis-ci.org/mrjacobbloom/teamWORK) [![Heroku](http://heroku-badge.herokuapp.com/?app=natural-neighbors&style=flat&svg=1)](https://natural-neighbors.herokuapp.com/)
 
