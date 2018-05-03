@@ -6,7 +6,7 @@ Natural Neighbors is a social network where wildlife enthusiasts can post about
 what animals they've seen. Think iNaturalist but tiny and not intended for
 the advancement of science.
 
-[Try it out](https://natural-neighbors.herokuapp.com/) our watch a walkthrough below:
+[Try it out](https://natural-neighbors.herokuapp.com/), or watch a walkthrough below:
 
 [![walk-through video](http://img.youtube.com/vi/MBrT0ZcP6OE/0.jpg)](http://www.youtube.com/watch?v=MBrT0ZcP6OE)
 
