@@ -1,0 +1,106 @@
+body
+{
+margin: 0;
+padding: 0;
+background: url("picture/nature.jpg");
+background-size: cover;
+background-position:center;
+font-family: "Times New Roman", Times, serif;
+}
+
+h1
+{
+background: rgb(0,204,0);
+width: 400;
+height: 42;
+position: fixed;
+text-align: center;
+font-size: 40px;
+margin-left: 80%;
+margin-top: -20px;
+}
+
+h2
+{
+margin-left: 950;
+margin-top: 300;
+text-decoration: none;
+font-size: 60px;
+color: rgba(0,0,200,0.8);
+font-family:"Arial Rounded MT Bold";
+line-height: 1.5;
+word-wrap: break-word;
+}
+
+.box
+{
+width: 600px;
+height: 500px;
+position: fixed;
+box-sizing: border-box;
+margin-top: 200;
+margin-left: 900;
+}
+
+.box p
+{
+margin: 0;
+padding: 0;
+font-weight: bold;
+}
+
+.box input
+{
+width: 100%;
+margin-bottom: 20px;
+}
+
+
+.box input[type="button"]
+{
+border: none;
+outline: none;
+background: rgba(255,255,255,0.3);
+width:600px;
+height:500px;
+}
+
+.box input[type="button"]:hover
+{
+cursor: pointer;
+width:600px;
+height:500px;
+background: rgba(0,152,50,0.7);
+}
+
+#log
+{
+height: 40px;
+background: #fb2525;
+}
+#sign
+{
+height: 30px;
+background: #6c39d6;	
+}
+
+#log
+{
+height: 40px;
+background: #fb2525;
+}
+
+.box a
+{
+text-decoration: none;
+font-size: 60px;
+line-height: 20px;
+color: rgba(0,0,200,0.8);
+font-family:"Arial Rounded MT Bold";
+line-height: 1.5;
+}
+
+.box a:hover
+{
+color: #ffc107;
+}

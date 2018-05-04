@@ -1,0 +1,101 @@
+body
+{
+margin: 0;
+padding: 0;
+background: url("picture/nature.jpg");
+background-size: cover;
+background-position:center;
+font-family: "Times New Roman", Times, serif;
+}
+
+.box
+{
+
+width: 360px;
+height: 520px;
+position: absolute;
+transform: translate(-50%, -50%);
+box-sizing: border-box;
+padding: 75px 30px;
+color: #000;
+top: 50%;
+left: 50%;
+
+}
+
+h1
+{
+margin: 0;
+padding: 0 0 20px;
+text-align: center;
+font-size: 22px;
+}
+
+h2
+{
+background: rgb(0,204,0);
+width: 400;
+height: 42;
+position: fixed;
+text-align: center;
+font-size: 40px;
+margin-left: 80%;
+margin-top: -20px;
+}
+
+.box p
+{
+margin: 20px;
+padding: 0;
+font-weight: bold;
+}
+
+.box input
+{
+width: 100%;
+margin-bottom: 20px;
+}
+
+.box input[type="text"], input[type="password"]
+{
+border: none;
+border-bottom: 1px solid #fff;
+background: transparent;
+outline: none;
+height: 40px;
+color: #fff;
+font-size: 16px;
+}
+
+.box input[type="button"]
+{
+border: none;
+outline: none;
+height: 30px;
+background: #6c39d6;
+color: #fff;
+font-size: 18px;
+border-radius: 20px;
+}
+
+.box input[type="button"]:hover
+{
+cursor: pointer;
+background: #ffc107;
+color: #000;
+}
+
+
+
+.box a
+{
+text-decoration: none;
+font-size: 12px;
+line-height: 20px;
+color: darkgrey;
+}
+
+.box a:hover
+{
+color: #ffc107;
+}
