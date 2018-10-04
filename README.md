@@ -2,7 +2,7 @@
 
 [![Build Status](https://travis-ci.org/mrjacobbloom/teamWORK.svg?branch=master)](https://travis-ci.org/mrjacobbloom/teamWORK) [![Heroku](http://heroku-badge.herokuapp.com/?app=natural-neighbors&style=flat&svg=1)](https://natural-neighbors.herokuapp.com/)
 
-**Note: The app is currently down. Click the YouTube link below for a walkthrough, or follow the instructions below to build it yourself.**
+**Note: the Heroku app is currently down. Click the YouTube link below for a walkthrough, or follow the instructions below to build it yourself.**
 
 Natural Neighbors is a social network where wildlife enthusiasts can post about
 what animals they've seen. Think iNaturalist but tiny and not intended for
